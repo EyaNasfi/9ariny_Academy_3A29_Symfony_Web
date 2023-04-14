@@ -4,7 +4,7 @@
         public static function GetConnexion (){
             if (!isset(self :: $pdo)){
                 try {
-                    self :: $pdo = new PDO ('mysql:host=localhost;dbname=entreprise','root','',
+                    self :: $pdo = new PDO ('mysql:host=localhost;dbname=entrepise','root','',
                     [
                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, 
                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC 
