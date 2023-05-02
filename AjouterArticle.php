@@ -27,17 +27,45 @@ $articleC = new articleC();
           isset($_POST["nomA"]) &&
           isset($_POST["quantite"]) &&
           isset($_POST["prix"]) && 
-          isset($_POST["modeleA"])  
-      ){
-        if (  !empty($_POST["nomA"]) && !empty($_POST["quantite"]) && !empty($_POST["prix"])&& !empty($_POST["modeleA"]))
+          isset($_POST["modeleA"])  && 
+          isset($_POST["nomC"]) &&  
+          isset($_FILES["image"])  
+       
+      )
+      {
+        if (  !empty($_POST["nomA"]) &&
+         !empty($_POST["quantite"]) && 
+         !empty($_POST["prix"]) && 
+         !empty($_POST["modeleA"]) && 
+         !empty($_POST["nomC"])&&
+         !empty($_FILES["image"]))
         {
+
+          $filename = $_FILES["image"]["name"];
+          $tempname = $_FILES["image"]["tmp_name"];
+          $folder = "./image/" . $filename;
+
+          if (move_uploaded_file($tempname, $folder)) 
+           {
+              echo "<h3>  Image uploaded successfully!</h3>";
+           }
+           else 
+           {
+              echo "<h3>  Failed to upload image!</h3>";
+           }
             
-            $article = new article($_POST["nomA"],$_POST["quantite"],$_POST["prix"],$_POST["modeleA"]);
+            $article = new article($_POST["nomA"],
+            $_POST["quantite"],
+            $_POST["prix"],
+            $_POST["modeleA"],
+            $_POST["nomC"],
+            $filename,);
+
             $articleC->Ajouterarticle($article);
-            header("Location:AfficherArticle.php?successmodeleA= Utilisateur ajouté avec succés");     
+            header("Location:AfficherArticle.php?successMessage= Utilisateur ajouté avec succés");     
         }
           else
-              $errormodeleA = "<label id = 'form' style = 'color: red; font-weight: bold;'>&emsp;Une Information manquant !</label> ";                      
+              $errorMessage = "<label id = 'form' style = 'color: red; font-weight: bold;'>&emsp;Une Information manquant !</label> ";                      
       }   
       
 ?>
@@ -360,6 +388,8 @@ $articleC = new articleC();
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="../../pages/Produit/AfficherArticle.php">Afficher Article</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/Produit/AjouterArticle.php">Ajouter Article</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/Produit/captsha.php">Ajouter categorie</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/Produit/afficheC.php">Afficher categorie</a></li>
               </ul>
             </div>
           </li>
@@ -439,7 +469,7 @@ $articleC = new articleC();
                 <div class="card-body">
                   <h4 class="card-title">Nouveau Article</h4>
                   
-                  <form method="post" class="form" id="form" onchange="Verif();" >
+                  <form method="post" class="form" id="form" enctype="multipart/form-data" onchange="Verif();" >
 
 
 
@@ -484,23 +514,64 @@ $articleC = new articleC();
                 <a id="test2"></a>
                 </div>
              </div>
-           
-            
+  
+ 
+             <!------------------------------------------Categorie------------------------------------------------->
+             <div class="input-group mb-3">
+                    <label class="col-sm-3 col-form-label ">Categorie</label>
+                      <div class="col-sm-6">
+                        <select id="CatId" name="nomC"  class="form-control"  >
+                        <?php 
+                        //récuperer la liste des categories 
+                    
+                
+                        function AfficherCategorie(){
+                          $sql="SELECT * FROM categorie";
+                          $db = config::getConnexion();
+                          try{
+                              $liste = $db->query($sql);
+                              return $liste;
+                          }
+                          catch(Exception $e){
+                              die('Erreur:'. $e->getMessage());
+                          }
+                      }
 
-            <!---------------------------------------------Buttons---------------------------------------------->
-             <div class="row mb-5">
-                 <div class="offset-sm-3 col-sm-3 d-grid">
+                    $listeCategorie=AfficherCategorie();
+                      foreach($listeCategorie as $categorie){ 
+                      ?>
+                      <option value="<?php echo $categorie['idC']; ?>" class="form-control" ><?php echo $categorie['nomC']; ?></option>    
+                      <?php
+                      //fin foreach 
+                      }
+                      ?>
+                          </select>
+                          
+              </div>
+      </div>  
+                              <!---------------------------------------------image---------------------------------------------->
+<div class="input-group mb-3">
+                <label class="col-sm-3 col-form-label ">image</label>
+                <div class="col-sm-6">
+                    <input type="file" class="form-control" name="image" id="image">
+                </div>
+             </div>
+
+         
+<!---------------------------------------------Buttons---------------------------------------------->
+<div class="row mb-5">
+             <div class="offset-sm-3 col-sm-3 d-grid">
                 <button type="submit" class="btn btn-primary" name = "Ajouter"  id ="Ajouter">Ajouter</button>
              </div>
              <div class="col-sm-3 d-grid">
-                 <a class="btn btn-primary" href="AfficherArticle.php" role="button">Retour</a>
+                 <a class="btn btn-primary" href="AfficheArticle.php" role="button">Retour</a>
              </div>
           </div>
+            </table>
         </form>
-
-                </div>
-              </div>
-            </div> 
+        </div>
+    </body>
+</html>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">

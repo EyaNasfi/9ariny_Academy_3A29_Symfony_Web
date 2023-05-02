@@ -5,8 +5,19 @@
  
 	$articleC=new articleC();
 
+  if(isset($_GET['search']))
+	{
+		$listearticle=$articleC->Recherche($_GET['search']);
+	}
+	elseif(isset($_GET['tr']))
+	{
+		$listearticle=$articleC->triArticle();
+	}
+	else{
+	$listearticle=$articleC->AfficherArticle(); 
+	}
 
-    $listearticle=$articleC->AfficherArticle(); 
+
 
 
 
@@ -452,7 +463,15 @@
                 <!------Rec---->
                   <div>
                   <a class="btn btn-primary" href="AjouterArticle.php" role="button">Nouveau Article</a>
+                  <a class="btn btn-primary" href="http://localhost/marwan/Dashboard/View/template/pages/Produit/index.php" role="button">retour</a>
+                  
                 </div>
+                <div class="col-md-4"> 
+				<form method="get"> 
+					<input type="text" name="search" id="search" class="form-control" placeholder="Search...">
+				</form>
+			</div>
+      </div>
                 <td></td>
                 
                 <p>.</p>
@@ -468,6 +487,9 @@
 				<th>Quantité</th>
 				<th>Prix</th>
 				<th>ModeleA</th>
+     
+        <th>nomC</th>
+        <th>image</th>
 				<th>Modifier</th>
 				<th>Supprimer</th>
 			</tr>
@@ -482,6 +504,13 @@
 			  	      <td><?php echo $article['quantite']; ?></td>
                 <td><?php echo $article['prix']; ?></td>
                 <td><?php echo $article['modeleA']; ?></td>
+                <td><?php 	
+				$category = $articleC->RecupererCategorie($article['idC']);
+				$nomC=$category['nomC'];
+				echo $nomC;						?>  </td>
+        <td><img style="max-width: 100%;max-height=100%" src="img/<?php echo $article['image']; ?>"></td>
+
+        
 				<td>
 					<form method="GET" action="ModifierArticle.php">
 						<input type="submit"  class="btn btn-primary btn-sm" name="Modifier" value="Modifier">
@@ -535,8 +564,8 @@
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
   <script>
-    function changePage(idc){
-        window.location.href="AfficherProduit.php?page="+<?php echo $currentPage?>+"&idC="+idc;
+    function changePage(idC){
+        window.location.href="AfficherProduit.php?page="+<?php echo $currentPage?>+"&idC="+idC;
     }
 </script>
   

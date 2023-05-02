@@ -31,4 +31,15 @@ function Verif(){
     else{
         let error = document.getElementById("test3").innerHTML = "<label id = 'prix'></label>";
     }   
+    //categorie
+    string = document.getElementById("nomC").value;
+    if((string[0] < 'A')||(string > 'Z') || (string == "")){
+        console.log(string);
+        let error = document.getElementById("testtt").innerHTML = "<label id = 'nomC' style = 'color: red; font-weight: bold;'>&emsp;*nomC doit commencer par une lettre majuscule</label>";
+    }
+    else{
+        let error = document.getElementById("testtt").innerHTML = "<label id = 'nomC'></label>";
+    }
+    
 }
+

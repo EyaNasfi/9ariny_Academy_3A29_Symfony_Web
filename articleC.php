@@ -1,6 +1,6 @@
 <?php
-	include 'C:/xampp/htdocs/Works/marwan/Dashboard/Config.php';
-	include_once 'C:/xampp/htdocs/Works/marwan/Dashboard/Model/article.php';
+	include 'C:/xampp/htdocs/marwan/Dashboard/Config.php';
+	include_once 'C:/xampp/htdocs/marwan/Dashboard/Model/article.php';
 
 
 class articleC {
@@ -34,8 +34,8 @@ function Supprimerarticle($idA){
 
 /////..............................Ajouter............................../////
 function Ajouterarticle($article){
-    $sql="INSERT INTO article (nomA,quantite,prix,modeleA) 
-    VALUES (:nomA,:quantite,:prix,:modeleA)";
+    $sql="INSERT INTO article (nomA,quantite,prix,modeleA,idC,image) 
+    VALUES (:nomA,:quantite,:prix,:modeleA,:idC,:image)";
     
     $db = config::GetConnexion();
     try{
@@ -46,6 +46,9 @@ function Ajouterarticle($article){
             'quantite' => $article->getquantite(),
             'prix' => $article->getprix(),
             'modeleA' =>$article->getmodeleA(),
+           
+            'idC' => $article->getnomC(),
+            'image' => $article->getimage(),
             
             
     ]);			
@@ -76,12 +79,15 @@ function Recupererarticle($idA){
 function Modifierarticle($article, $idA){
     try {
         $db = config::getConnexion();
-$query = $db->prepare('UPDATE article SET   nomA = :nomA, quantite = :quantite, prix = :prix , modeleA = :modeleA WHERE idA= :idA');
+$query = $db->prepare('UPDATE article SET   nomA = :nomA, quantite = :quantite, prix = :prix , modeleA = :modeleA ,nomC = :nomC ,image = :image WHERE idA= :idA');
         $query->execute([
             'nomA' => $article->getnomA(),
             'quantite' => $article->getquantite(),
             'prix' => $article->getprix(),
             'modeleA' => $article->getmodeleA(),
+          
+            'nomC' => $article->getnomC(),
+            'image' => $article->getimage(),
             'idA' => $idA
            
         ]);
@@ -90,6 +96,34 @@ $query = $db->prepare('UPDATE article SET   nomA = :nomA, quantite = :quantite, 
         $e->getMessage();
     }
 }
- }
+function RecupererCategorie($idC){
+ 
+    $sql="SELECT * from categorie where idC = idC";
+    $db = config::getConnexion();
+    try{
+        $query=$db->prepare($sql);
+        $query->execute();
 
+        $categorie=$query->fetch();
+        return $categorie;
+    }
+    catch (Exception $e){
+        die('Erreur: '.$e->getMessage());
+    }
+}
+ 
+
+ /////..............................search............................../////
+ function Recherche($nomA){
+    $sql="SELECT * from article where nomA like '".$nomA."%' ";
+    $db = config::getConnexion();
+    try{
+        $liste = $db->query($sql);
+        return $liste;
+    }
+    catch(Exception $e){
+        die('Erreur:'. $e->getMessage());
+    }
+}
+}
 ?>

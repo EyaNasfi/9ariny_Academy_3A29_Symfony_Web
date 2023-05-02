@@ -18,20 +18,40 @@
         isset($_POST["nomA"]) &&
         isset($_POST["quantite"]) && 
         isset($_POST["prix"]) && 
-        isset($_POST["modeleA"])) 
+        isset($_POST["modeleA"]) && 
+        isset($_POST["nomC"])&&
+        isset($_FILES["image"]) ) 
         {
         if (            
             !empty($_POST["nomA"]) && 
             !empty($_POST["quantite"]) && 
             !empty($_POST["prix"]) && 
-            !empty($_POST["modeleA"]))
-             {
-            $article = new article(
-                $_POST['nomA'], 
-                $_POST['quantite'],
-                $_POST['prix'],
-                $_POST['modeleA']
-            );
+            !empty($_POST["modeleA"]) && 
+            !empty($_POST["nomC"])&&
+            !empty($_FILES["image"]))
+            {
+
+              $filename = $_FILES["image"]["name"];
+              $tempname = $_FILES["image"]["tmp_name"];
+              $folder = "./image/" . $filename;
+    
+              if (move_uploaded_file($tempname, $folder)) 
+               {
+                  echo "<h3>  Image uploaded successfully!</h3>";
+               }
+               else 
+               {
+                  echo "<h3>  Failed to upload image!</h3>";
+               }
+            $article = new article
+            (   $_POST['nomA'] , 
+                $_POST['quantite'] ,
+                $_POST['prix'] ,
+                $_POST['modeleA'] ,
+                $_POST['nomC'] ,
+                $filename , );
+
+
             $articleC->ModifierArticle($article, $_GET["idA"]);
             header('Location:AfficherArticle.php?mess=Article Modifé avec succés');
         }
@@ -482,6 +502,23 @@
                 <label class="col-sm-3 col-form-label ">ModeleA</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" name="modeleA" id="modeleA" value="<?php echo $article['modeleA'];?>">
+                   
+                </div>
+            </div>
+                                         <!---------------------------------------------image---------------------------------------------->
+<div class="input-group mb-3">
+                <label class="col-sm-3 col-form-label ">Image</label>
+                <div class="col-sm-6">
+                    <input type="file" class="form-control" name="image" id="image">
+                </div>
+             </div>
+
+
+             <!---------------------------------------------nomC---------------------------------------------->
+             <div class="row mb-3">
+                <label class="col-sm-3 col-form-label ">NomC</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="nomC" id="nomC" value="<?php echo $categorie['nomC'];?>">
                    
                 </div>
             </div>
