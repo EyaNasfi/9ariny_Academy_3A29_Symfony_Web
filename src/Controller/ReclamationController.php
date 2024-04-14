@@ -35,8 +35,7 @@ class ReclamationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) { //kn form valide 
             $em = $this->getDoctrine()->getManager(); //nakhedh entity manager eli ta3ml persist l'entite f bd
             $em->persist($reclamation); //T3awedh persist l'entité Reclamation fil entity manager.
-            $sid    = "ACab83a00aa24c2945460363efc3c77fed";
-            $token  = "ef4709f9deb9baa5f41868c223744617";
+        
             $twilio = new Client($sid, $token);
         
             $message = $twilio->messages
