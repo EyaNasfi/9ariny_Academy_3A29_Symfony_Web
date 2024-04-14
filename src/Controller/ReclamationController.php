@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use Twilio\Rest\Client;
 
-require_once 'C:\Users\Eya\projet\vendor\autoload.php';
 use App\Entity\Reclamation;
 use App\Form\ReclamationType;
 use App\Repository\UserRepository;
@@ -36,15 +35,8 @@ class ReclamationController extends AbstractController
             $em = $this->getDoctrine()->getManager(); //nakhedh entity manager eli ta3ml persist l'entite f bd
             $em->persist($reclamation); //T3awedh persist l'entité Reclamation fil entity manager.
         
-            $twilio = new Client($sid, $token);
+           
         
-            $message = $twilio->messages
-                array(
-                  "body" => "Ilya une reclamation veuillez la consulter en https://127.0.0.1:8000/reclamation/back/afficher "
-                )
-              );
-        
-        print($message->sid);
         $em->flush(); //na3ml refresh f bd
  
             return $this->redirectToRoute('app_reclamation');
