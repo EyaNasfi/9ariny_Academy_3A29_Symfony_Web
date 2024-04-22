@@ -1,0 +1,7 @@
+vich_uploader:
+    db_driver: orm
+    mappings:
+        product_image:
+            uri_prefix: /images1/formations
+            upload_destination: '%kernel.project_dir%/public/images1/formations'
+            namer: Vich\UploaderBundle\Naming\OrignameNamer
