@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Formation;
 use App\Form\FormationType;
 use App\Repository\FormationRepository;
+use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 
@@ -82,6 +84,79 @@ class FormationController extends AbstractController
         ]);
     }
 
+    #[Route('/searchByNomFormation', name: 'searchByNomFormation')]
+    public function searchByNomFormation(Request $request, FormationRepository $formationRepository): Response
+    {
+        $searchTerm = $request->query->get('search');
+        $formations = $formationRepository->createQueryBuilder('f')
+            ->where('f.nomDeFormation LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    
+        return $this->render('Front/backtemplate.html.twig', [
+            'Formation' => $formations,
+            'tri' => null, // Add the 'tri' variable to the context with a default value
+        ]);
+    }
+    
+    
+    #[Route('/triFormation/{critere}', name: 'triFormation')]
+
+public function triFormation(FormationRepository $formationRepository, $critere): Response
+{
+    $queryBuilder = $formationRepository->createQueryBuilder('f');
+
+    if ($critere === 'nom') {
+        $queryBuilder->orderBy('f.nomDeFormation', 'ASC');
+    } elseif ($critere === 'dateDeb') {
+        $queryBuilder->orderBy('f.dateDeb', 'ASC');
+    }
+
+    $formations = $queryBuilder->getQuery()->getResult();
+
+    return $this->render('Front/backtemplate.html.twig', [
+        'Formation' => $formations,
+        'tri' => $critere, // Passer la variable 'tri' au template
+    ]);
+}
+#[Route('/statistiques', name: 'statistiques')]
+public function statistiques(FormationRepository $formationRepository, SerializerInterface $serializer): Response
+{
+    // Récupérer le nombre de formations par catégorie
+    $formationsParCategorie = $formationRepository->countFormationsByCategory();
+
+    // Convertir les données en format adapté pour Chart.js
+    $categories = [];
+    $nombreFormations = [];
+    foreach ($formationsParCategorie as $categorie) {
+        $categories[] = $categorie['categorie']; // Access the category name
+        $nombreFormations[] = $categorie['nombre']; // Access the count of formations
+    }
+
+    // Convertir les données en format JSON pour l'utilisation dans le template
+    $data = [
+        'nomsFormations' => $categories,
+        'nombreFormations' => $nombreFormations,
+    ];
+    $jsonData = $serializer->serialize($data, 'json');
+
+    // Afficher le template avec les données JSON
+    return $this->render('Front/stats.html.twig', [
+        'jsonData' => $jsonData,
+    ]);
+}
+
 
 }
+
+
+
+
+
+
+
+    
+    
+
  
