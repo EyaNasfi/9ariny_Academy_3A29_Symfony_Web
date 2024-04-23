@@ -1,1 +1,0 @@
-# 9ariny_Academy_3A29_Symfony_Web

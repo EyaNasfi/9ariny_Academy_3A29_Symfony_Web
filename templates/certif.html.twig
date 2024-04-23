@@ -1,0 +1,88 @@
+
+
+<html>
+    <head>
+        <style type='text/css'>
+            body, html {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                color: black;
+                display: table;
+                font-family: Georgia, serif;
+                font-size: 24px;
+                text-align: center;
+            }
+            .container {
+                border: 20px solid tan;
+                width: 800px;
+                height: 600px;
+                display: table-cell;
+                vertical-align: middle;
+            }
+            .logo {
+                color: tan;
+            }
+
+            .marquee {
+                color: tan;
+                font-size: 48px;
+                margin: 20px;
+            }
+            .assignment {
+                margin: 20px;
+            }
+            .person {
+                border-bottom: 2px solid black;
+                font-size: 32px;
+                font-style: italic;
+                margin: 20px auto;
+                width: 600px;
+            }
+            .reason {
+                margin: 20px;
+            }
+        </style>
+    </head>
+    <body>
+<form method="get" action="file.doc">
+   <button type="submit">Download!</button>
+</form>
+<script>
+$("#fileRequest").click(function(){ /* code to download? */ });
+
+</script
+        <div class="container">
+            <div class="logo">
+        <img src="/9A.png" alt="logo" position="right" ></img>
+            9ariny-Academy            
+            </div>
+
+            <div class="marquee">
+     {% if quizs is not empty %}
+
+            Certificat d'achèvement de {{quizs[0].nom}}
+                {% endif %}
+
+            </div>
+
+            <div class="assignment">
+                La certificat presente pour
+            </div>
+
+            <div class="person">
+            {% if quizs is not empty %}
+        <br> {{ quizs[0].iduser.nom }} {{ quizs[0].iduser.prenom }} <br/>
+    {% endif %}
+                </div>
+
+            <div class="reason">
+              <br> Pour avoir habilement défié les lois de la gravité
+et voler haut</br>
+        <img src="/signatureeya.jpg" alt="logo" ></img>
+
+            </div>
+        </div>
+    </body>
+</html>
