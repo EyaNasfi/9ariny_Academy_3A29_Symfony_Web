@@ -1,0 +1,9 @@
+{# templates/Front/surv.html.twig #}
+
+
+{% block title %}Survey{% endblock %}
+
+{% block body %}
+    <h1>{{ survey.title is defined ? survey.title : 'Unknown' }}</h1>
+    <p>{{ survey.description is defined ? survey.description | default('No description available.') : 'No description available.' }}</p>
+{% endblock %}

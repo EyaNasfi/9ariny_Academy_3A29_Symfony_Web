@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Formation;
+use App\Entity\Rating;
 use App\Form\FormationType;
 use App\Repository\FormationRepository;
 use App\Repository\CategorieRepository;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Countable;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 
@@ -146,9 +149,58 @@ public function statistiques(FormationRepository $formationRepository, Serialize
         'jsonData' => $jsonData,
     ]);
 }
+#[Route('/Frontt', name: "Frontt")]
+public function indexx(FormationRepository $formationRepository): Response
+{
+    $formations = $formationRepository->findAll();
+    $totalFormations = count($formations);
+    $totalCost = array_reduce($formations, function ($acc, $formation) {
+        return $acc + (int)$formation->getcout();
+    }, 0);
 
-
+    return $this->render('Front/stats.html.twig', [
+        'formations' => $formations,
+        'totalFormations' => $totalFormations,
+        'totalCost' => $totalCost,
+    ]);
 }
+
+
+
+#[Route('/rate', name: 'rate_formation', methods: ['GET', 'POST'])]
+public function addRating(Request $request): Response
+{
+    $data = json_decode($request->getContent(), true);
+
+    if (isset($data['formation_id']) && isset($data['rating'])) {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // Récupérer la formation correspondant à l'ID
+        $formation = $entityManager->getRepository(Formation::class)->find($data['formation_id']);
+
+        if ($formation) {
+            // Créer une nouvelle instance de Rating
+            $rating = new Rating();
+            $rating->setFormation($formation);
+            $rating->setRating($data['rating']);
+
+            // Enregistrer le rating dans la base de données
+            $entityManager->persist($rating);
+            $entityManager->flush();
+
+            return new JsonResponse(['message' => 'Rating added successfully'], Response::HTTP_CREATED);
+        } else {
+            return new JsonResponse(['message' => 'Formation not found'], Response::HTTP_NOT_FOUND);
+        }
+    } else {
+        return new JsonResponse(['message' => 'Invalid data'], Response::HTTP_BAD_REQUEST);
+    }
+}
+}
+
+
+
+
 
 
 

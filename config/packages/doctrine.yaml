@@ -1,5 +1,8 @@
 doctrine:
     dbal:
+
+
+    
         url: '%env(resolve:DATABASE_URL)%'
 
         # IMPORTANT: You MUST configure your server version,
@@ -15,6 +18,8 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+
+
 
 when@test:
     doctrine:

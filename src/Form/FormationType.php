@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Form;
 
 use App\Entity\Formation;
@@ -12,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class FormationType extends AbstractType
 {
@@ -34,6 +33,10 @@ class FormationType extends AbstractType
             ->add('dateDeb')
             ->add('dateFin')
             ->add('cout')
+            ->add('note', IntegerType::class, [
+                'required' => false, // Mark it as not required if it's optional
+                // Add any other constraints you need for the note field
+            ])
             ->add('nomCategorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'nomCategorie',
@@ -41,8 +44,6 @@ class FormationType extends AbstractType
             ]);
            
     }
-
-    
 
     public function configureOptions(OptionsResolver $resolver): void
     {

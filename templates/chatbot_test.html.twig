@@ -1,0 +1,81 @@
+{# templates/chatbot/index.html.twig #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        /* Your existing CSS styles */
+        /* Add your additional styles here */
+        .loading {
+            color: #999;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="chat"></div>
+        <form id="message-form">
+            <input type="text" id="message-input" placeholder="Type a message...">
+            <button type="submit">Send</button>
+        </form>
+        <div id="loading-indicator" class="loading" style="display: none;">Loading...</div>
+    </div>
+
+    <script>
+        const chat = document.getElementById('chat');
+        const form = document.getElementById('message-form');
+        const input = document.getElementById('message-input');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const message = input.value.trim();
+            if (message) {
+                displayMessage('user', message);
+                input.value = '';
+                sendMessage(message);
+            }
+        });
+
+        function displayMessage(sender, message) {
+            const div = document.createElement('div');
+            div.classList.add('message', sender + '-message');
+            div.textContent = message;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function sendMessage(message) {
+            loadingIndicator.style.display = 'block';
+            // Make a request to your chatbot API endpoint
+            fetch('/webhook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the API
+                const botResponse = data.message;
+                displayMessage('bot', botResponse);
+            })
+
+            
+            .catch(error => {
+                console.error('Error:', error);
+                displayMessage('bot', 'An error occurred while processing your request.');
+            })
+            .finally(() => {
+                loadingIndicator.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

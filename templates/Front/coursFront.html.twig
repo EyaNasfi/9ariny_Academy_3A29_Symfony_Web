@@ -29,6 +29,8 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+        <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
 </head>
 
 <body>
@@ -108,28 +110,51 @@
 
 
 <section class="service_section layout_padding">
-				<link href="{{ asset('css/style.css') }}" rel="stylesheet">
-				<div class="container">
-					<div class="heading_container">
-						<h2></h2>
-					</div>
-					<div class="row">
-						{% for cour in Cours %}
-							<div class="col-md-6 col-lg-4 formation-item">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-img-container">
-											<img href="{{ asset('css/style.css') }}" src="{{ asset('img/formation_images/' ~ cour.nomCours|replace({' ': '_', 'sécurité': 'securite'}) ~ '.png') }}" alt="{{ cour.nomCours }}" class="card-img">
-										</div>
-										<h5 class="card-title">{{ cour.nomCours }}</h5>
-										<a href="{{ path('download_pdf', {'idcour': cour.idcour}) }}">Download PDF</a>
-									</div>
-								</div>
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-			</section>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <div class="container">
+        <div class="heading_container">
+            <h2></h2>
+        </div>
+        <div class="row">
+            {% for cour in Cours %}
+                <div class="col-md-6 col-lg-4 formation-item">
+                    <div class="diamond">
+                        <div class="card-body">
+                            <div class="card-img-container">
+                                <img href="{{ asset('css/style.css') }}" src="{{ asset('img/formation_images/' ~ cour.nomCours|replace({' ': '_', 'sécurité': 'securite'}) ~ '.png') }}" alt="{{ cour.nomCours }}" class="card-img">
+                            </div>
+                            <h5 class="card-title">{{ cour.nomCours }}</h5>
+                            <a href="{{ path('download_pdf', {'idcour': cour.idcour}) }}">Download PDF</a>
+                           
+                            <div id="qrcode_{{ cour.idcour }}"></div>
+                            <script>
+    var qrcode_{{ cour.idcour }} = new QRCode(document.getElementById("qrcode_{{ cour.idcour }}"), {
+        text: "{{ cour.nomCours }}", // Utiliser le nom du cours directement
+        width: 90,
+        height: 90
+    });
+</script>
+<div>
+{% set url = absolute_url(path('download_pdf', {'idcour': cour.nomCours})) %}
+<a href="https://www.facebook.com/sharer/sharer.php?u={{ url }}{{ cour.nomCours }}" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Partager sur Facebook" style="width: 40px; height: 40px;">
+</a>
+
+
+{% set url = absolute_url(path('download_pdf', {'idcour': cour.idcour})) %}
+<a href="https://twitter.com/intent/tweet?url={{ url }}{{ cour.nomCours }}" target="_blank">
+    <img src="img/formation_images/twiter.jpg
+" alt="Partager sur Twitter" style="width: 40px; height: 40px;">
+</a>
+</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+ 
 
 
 

@@ -17,6 +17,31 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use BaconQrCode\Common\ErrorCorrectionLevel;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use BaconQrCode\Common\ContentType;
+use BaconQrCode\Common\Mode;
+use BaconQrCode\Common\MaskPattern;
+use BaconQrCode\Common\ReedSolomonField;
+use BaconQrCode\Encoder\QrCode;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\Image\SvgRenderer;
+use BaconQrCode\Writer;
+use BaconQrCode\Encoder\Encoder;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\ImageRendererInterface;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -175,5 +200,27 @@ $cour->setIdformation($selectedFormation); // Utilisez $selectedFormation au lie
         return $this->render("Front/CoursFront.html.twig", ["Cours" => $repCours->findAll()]);
     }
 
-    
+    #[Route('/scan-qr-code', name: 'scan_qr_code')]
+public function scanQrCodeAction(Request $request, CourFormationRepository $repo): Response
+{
+    // Récupérer l'ID du cours à partir du QR code
+    $qrCodeId = $request->query->get('Nom_Cours');
+
+    // Vérifier si le cours existe
+    $cours = $repo->findOneBy(['Nom_Cours' => $qrCodeId]);
+    if (!$cours) {
+        throw $this->createNotFoundException('Le cours avec l\'ID ' . $qrCodeId . ' n\'existe pas.');
+    }
+
+    // Récupérer le nom du cours
+    $nomCours = $cours->getNomCours();
+
+    // Générer l'URL de recherche sur Google avec le nom du cours
+    $searchUrl = 'https://www.google.com/search?q=' . urlencode($nomCours);
+
+    // Rediriger l'utilisateur vers l'URL de recherche
+    return $this->redirect($searchUrl);
+}
+
+
 }

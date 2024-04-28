@@ -72,7 +72,20 @@ class Formation
     private $nomCategorie;
     
     
-
+    #[ORM\Column(type:"integer", nullable:true)]
+    private $note;
+    
+    public function getNote(): ?int
+    {
+        return $this->note;
+    }
+    
+    public function setNote(?int $note): self
+    {
+        $this->note = $note;
+    
+        return $this;
+    }
 
     public function getIidDeFormation(): ?int
     {
