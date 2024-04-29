@@ -1,0 +1,43 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Modifier le profil{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Modifier vos informations</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Basic Info</h5>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(profileForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.email, {'label': 'Email', 'attr': {'class': 'form-control'}}) }}
+                                {{ form_row(profileForm.nom, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}
+                                {{ form_row(profileForm.prenom, {'label': 'Prenom', 'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.address, {'label': 'Adresse', 'attr': {'class': 'form-control'}}) }}
+                                {{ form_row(profileForm.image, {'label': 'Image', 'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-lg btn-primary">{{ button_label|default('Enregistrer les modifications') }}</button>
+                        {{ form_end(profileForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

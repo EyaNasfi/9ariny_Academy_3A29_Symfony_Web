@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="{{ path('app_index') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+             <img  src="{{ asset('front/logo/log.png') }}" width="65" height="65"> <h2 style="color: #06BBCC;">9arinyAcademy</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{ path('app_index') }}" class="nav-item nav-link active">Home</a>
+                {% if app.user %}
+                    {% if app.user.roles[1]=="ROLE_USER" %}
+                        <a href="{{ path('app_myprofile') }}" class="nav-item nav-link">Mon compte</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">
+                    Logout
+                    <i class="fa fa-arrow-right ms-3"></i>
+                </a>
+
+            {% else  %}
+                <a href="{{ path('app_login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">
+                    Sign Up/Login
+                    <i class="fa fa-arrow-right ms-3"></i>
+                </a>
+            {% endif %}
+        </div>
+    </nav>
