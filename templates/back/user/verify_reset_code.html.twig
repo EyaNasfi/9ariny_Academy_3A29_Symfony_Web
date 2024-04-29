@@ -1,0 +1,49 @@
+{% extends 'base-back.html.twig' %}
+{% block body %}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Modifier vos informations</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                          <div class="sign__group">
+                          {% for message in app.flashes('error') %}
+                            <h1 class="footer__tagline">
+                              {{ message }}
+                            </h1>
+                          {% endfor %}
+                          </div>
+
+                          <div class="sign__group">
+                            {{ form_widget(form.Password,  {'attr': { placeholder:'mot de passe' }}) }}
+                            <h5 class="footer__tagline">
+                              {{ form_errors(form.Password) }}
+                            </h5>
+
+                          </div>
+                          <div class="sign__group">
+                            {{ form_widget(form.ConfirmPassword,  {'attr': { placeholder:'confirmer mot de passe' }}) }}
+                              <h5 class="footer__tagline">
+                                  {{ form_errors(form.ConfirmPassword) }}
+                              </h5>
+                          </div>
+
+                            <button class="btn btn-lg btn-primary">{{ button_label|default('Réinitialiser le mot de passe') }}</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Modifier le profil{% endblock %}
+
+{% block body %}
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Modifier le profil</h6>
+                <h1 class="mb-5">Modifier vos informations</h1>
+            </div>
+            <div class="row g-4">
+                {{ form_start(profileForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.email, {'label': 'Email', 'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(profileForm.nom, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(profileForm.prenom, {'label': 'Prenom', 'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.address, {'label': 'Adresse', 'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(profileForm.image, {'label': 'Image', 'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <button class="btn btn-lg btn-primary">{{ button_label|default('Enregistrer les modifications') }}</button>
+                {{ form_end(profileForm) }}
+
+                <br>
+                <label for="inputPassword">Retour au profil</label>
+                <br>
+                <br>
+                <button class="btn btn-lg btn-primary" onclick="window.location.href='{{ path('app_myprofile') }}'">
+                    Profil
+                </button>
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock %}
