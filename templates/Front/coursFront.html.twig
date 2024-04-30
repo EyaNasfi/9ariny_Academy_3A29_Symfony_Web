@@ -146,15 +146,122 @@
     <img src="img/formation_images/twiter.jpg
 " alt="Partager sur Twitter" style="width: 40px; height: 40px;">
 </a>
+<div>
+											{# Map each course to its corresponding video ID #}
+											{% set videoId = {
+                        'Map': 'FGU-imprdKs',
+                        'List': '7KSA2kDAs8M',
+                        'Encapsulation': 'zM_Qf07fEyc',
+                        'Interface': 'O7Vx1jYYpWI',
+                        'Exeptions': 'UEISfoJaOyk',
+                        'POO': 'xk4_1vDrzzo&t=1s',
+                        'c': 'dTp0c41XnrQ',
+						'symfony': 'MPGbdYby4_s',
+                        'c++': 'RSDzvlXmQi4'
+
+                        }[cour.nomCours] ?? null %}
+
+											{% if videoId is not null %}
+												<div>
+													<iframe width="340" height="200" src="https://www.youtube.com/embed/{{ videoId }}" frameborder="0" allowfullscreen></iframe>
+												</div>
+											{% else %}
+												<p>No video available for this course</p>
+											{% endif %}
+										</div>
+									</div>
+								</div>
 </div>
-                        </div>
-                    </div>
+                       
+                    
                 </div>
             {% endfor %}
         </div>
+        {{ knp_pagination_render(Cours) }}
+
     </div>
 </section>
- 
+<a href="{{ path('webhook') }}" class="btn btn-primary">Help</a>
+ 			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+const formationItems = document.querySelectorAll('.formation-item');
+
+// Object to keep track of whether a message has been shown for each item
+const messageShown = {};
+
+formationItems.forEach(item => {
+item.addEventListener('mouseover', function () {
+const course = item.getAttribute('data-course');
+// Check if message has been shown for this item
+if (! messageShown[course]) {
+let message = '';
+switch (course) {
+case 'Encapsulation': message = 'Java is a powerful and versatile programming language used for a wide range of applications.';
+break;
+case 'polymorthisme': message = 'Explore mobile app development and create your own apps for iOS and Android platforms.';
+break;
+case 'c': message = 'C is a foundational programming language known for its efficiency and versatility, used in system programming and embedded systems.';
+break;
+case 'c++': message = 'C++ is an extension of the C programming language with added features for object-oriented programming and generic programming.';
+break;
+case 'bdd': message = 'Learn about Database Design and Development, covering topics like data modeling, normalization, and SQL.';
+break;
+case 'symfony': message = 'Symfony is a popular PHP framework for building web applications with a focus on speed, flexibility, and reusable components.';
+break;
+case 'javascript': message = 'JavaScript is a key programming language for web development, enabling dynamic and interactive user experiences.';
+break;
+case 'sql': message = 'SQL (Structured Query Language) is essential for managing and querying relational databases, used in a wide range of applications.';
+break;
+default: message = 'No specific message available for this course';
+break;
+}
+// Display message only if it hasn't been shown before
+if (message) {
+Swal.fire({
+title: 'Course Details',
+html: message,
+background: '#f3f3f3', // Change background color here
+showCloseButton: true,
+focusConfirm: false
+});
+// Set the flag to true to indicate that message has been shown for this item
+messageShown[course] = true;
+}
+}
+});
+});
+});
+			</script>
+			<style>
+				/* Add space at the bottom of each card */
+				.custom-card {
+					margin-bottom: 20px; /* Adjust the value as needed */
+				}
+
+				/* Add space between rows of cards */
+				.row {
+					margin-bottom: 20px; /* Adjust the value as needed */
+				}
+				.custom-card {
+					background-color: #41B8D5;
+					/* Set the background color of the card */
+					color: white;
+					/* Set the text color of the card */
+					border: none;
+					/* Remove the border from the card */
+					border-radius: 10px;
+					/* Add some border-radius for rounded corners */
+					box-shadow: 0 6px 8px rgba(0, 0, 0, 0.8);
+					/* Add a box-shadow for a subtle effect */
+					transition: transform 0.3s ease;
+					/* Add a smooth transition effect */
+				}
+
+				.custom-card:hover {
+					transform: translateY(-5px);
+					/* Move the card up slightly on hover */
+				}
+			</style>
 
 
 

@@ -18,6 +18,7 @@
         "endroid/qr-code": "^5.0",
         "google/apiclient": "*",
         "guzzlehttp/guzzle": "^7.8",
+        "knplabs/knp-paginator-bundle": "^5.9",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.24",
         "pimax/fb-messenger-php": "^1.3",

@@ -197,6 +197,7 @@ formation.style.display = 'none';
                                 <li class="list-group-item">Categorie: {{ formation.getCategorie() }}</li>
                             </ul>
                             <a href="{{ path('afficheCoursFront') }}" class="btn btn-primary">Détails</a>
+                           <a href="{{ path('insert_feedback') }}" class="btn btn-primary" >feedbacks</a>
                             <div class="rating" data-formation-id="{{ formation.getIidDeFormation() }}">
                                 <ul class="stars">
                                     <li class="star" data-value="1">&#9733;</li>
@@ -216,6 +217,33 @@ formation.style.display = 'none';
 {% endblock %}
 {% block javascripts %}
     <script>
+function openModal() {
+  const modal = document.getElementById("myModal");
+  if (modal) {
+    modal.style.display = "block";
+  }
+}
+
+// Fonction pour fermer la fenêtre modale
+function closeModal() {
+  const modal = document.getElementById("myModal");
+  if (modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Fermer la fenêtre modale lorsque l'utilisateur clique en dehors de celle-ci
+document.addEventListener('click', function(event) {
+  const modal = document.getElementById("myModal");
+  if (modal && event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+
+
+
+
    document.addEventListener('DOMContentLoaded', function() {
     const ratings = document.querySelectorAll('.rating');
 

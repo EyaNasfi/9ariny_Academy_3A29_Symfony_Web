@@ -30,6 +30,8 @@ use BaconQrCode\Writer;
 use BaconQrCode\Encoder\Encoder;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\ImageRendererInterface;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 
 
@@ -194,11 +196,23 @@ $cour->setIdformation($selectedFormation); // Utilisez $selectedFormation au lie
     {
         return $this->render("Front/Courss.html.twig", ["Cours" => $repCours->findAll()]);
     }
+
     #[Route('/afficheCoursFront', name: 'afficheCoursFront')]
-    public function AffichageCoursFront(CourFormationRepository $repCours)
+    public function AffichageCoursFront(CourFormationRepository $repCours, PaginatorInterface $paginator, Request $request): Response
     {
-        return $this->render("Front/CoursFront.html.twig", ["Cours" => $repCours->findAll()]);
+        // Retrieve all formations query
+        $query = $repCours->createQueryBuilder('f')->getQuery();
+    
+        // Paginate the results
+        $Cours = $paginator->paginate(
+            $query, // Query to paginate
+            $request->query->getInt('page', 1), // Current page number, default is 1
+            3 // Items per page
+        );
+    
+        return $this->render("Front/CoursFront.html.twig", ["Cours" => $Cours]);
     }
+    
 
     #[Route('/scan-qr-code', name: 'scan_qr_code')]
 public function scanQrCodeAction(Request $request, CourFormationRepository $repo): Response
@@ -221,6 +235,22 @@ public function scanQrCodeAction(Request $request, CourFormationRepository $repo
     // Rediriger l'utilisateur vers l'URL de recherche
     return $this->redirect($searchUrl);
 }
+#[Route('/Youtube', name: 'Youtube')]
+public function youtubeapi(\App\Service\YouTubeService $youtubeService, CourFormationRepository $courRepository): Response
+{
+    // Example usage: searching for videos with a query
+    $apiKey = 'AIzaSyAW5EuWzi6d8kzNVvul8lQSS0NKvnHx-LM'; // Replace with your actual API key
+    $response = $youtubeService->searchVideos('java', $apiKey);
 
+    // Fetch CourFormation data from the repository
+    $courFormationData = $courRepository->findAll();
+
+    // Process the response and use the data in your application
+
+    return $this->render('Front/coursFront.html.twig', [
+        'CourFormation' => $courFormationData,
+        'response' => $response,
+    ]);
+}
 
 }
