@@ -5,7 +5,10 @@
     <meta charset="UTF-8" />
     <title>Responsiive Admin Dashboard | 9ariny-Academy</title>
     <script src="https://kit.fontawesome.com/7e57645445.js" crossorigin="anonymous"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css" />
     <style>
@@ -41,8 +44,8 @@
 }
 .sidebar .logo-details .logo_name{
   color: #fff;
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 400;
 }
 .sidebar .nav-links{
   margin-top: 10px;
@@ -457,44 +460,44 @@ nav .profile-details i{
   <body>
     <div class="sidebar">
       <div class="logo-details">
-        <img src="/looo.png">9ariny-Academy</img>
+     <img src="/log.png" ></img>
+
       </div>
          <ul class="nav-links">
-      
+       <li>
+          <a href="#">
+            <i class="fa fa-home"></i>
+            <span class="links_name">Dashboard admin</span>
+          </a>
+        </li>
         <li>
-         <a href=""  class="active">
  <i class="fa-solid fa-school-circle-exclamation"></i>            
  <span class="links_name">Reclamations</span>
           </a>
         </li>
         <li>
-       <a href="" >
            <i class="fa-solid fa-file-circle-question"></i>
             <span class="links_name">Quiz</span>
           </a>
         </li>
-        <li>
-          <a href="#">
+              <li>
            <i class="fa-solid fa-calendar-check"></i>        
             <span class="links_name">Evenements</span>
           </a>
         </li>
         <li>
-          <a href="#">
            <i class="fa-solid fa-puzzle-piece"></i>        
             <span class="links_name">Clubs</span>
           </a>
         </li>
         <li>
-          <a href="#"
-                                                                        
-          >
+          <a href="#">
             <i class="fa-solid fa-book-open-reader"></i>
             <span class="links_name">Cours</span>
           </a>
         </li>
          <li>
-          <a href="{{ path('list_Formation') }}">
+          <a href="#">
 <i class="fa-solid fa-list"></i>
             <span class="links_name">Formations</span>
           </a>
@@ -514,21 +517,15 @@ nav .profile-details i{
          
         </li>
          <li>
-        <a href="{{ path('app_remise_index') }}">
+          <a href="#">
 <i class="fas fa-shopping-cart"></i>
-            <span class="links_name">Remise</span>
+            <span class="links_name">Paiements</span>
           </a>
         </li>
          <li>
           <a href="#">
 <i class="fa-solid fa-user"></i>
             <span class="links_name">Account</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="bx bx-map"></i>
-            <span class="links_name">Map</span>
           </a>
         </li>
        <li>
@@ -549,6 +546,12 @@ nav .profile-details i{
           <input type="text" placeholder="Search..." />
           <i class="bx bx-search"></i>
         </div>
+         <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"></span> <span class="glyphicon glyphicon-bell" style="font-size:18px;"></span></a>
+       <ul class="dropdown-menu"></ul>
+      </li>
+     </ul>
         <div class="profile-details">
           <img src="/profile.png" alt="" />
           <span class="admin_name">Nasfi Eya</span>
@@ -556,79 +559,67 @@ nav .profile-details i{
         </div>
       </nav>
 
-      <div class="home-content">
-        <div class="overview-boxes">
-          <div class="box">
-            <div class="right-side">
-              <div class="box-topic">Total Order</div>
-              <div class="number">40,876</div>
-              <div class="indicator">
-                <i class="bx bx-up-arrow-alt"></i>
-                <span class="text">Up from yesterday</span>
-              </div>
-            </div>
-            <i class="bx bx-cart-alt cart"></i>
-          </div>
-          <div class="box">
-            <div class="right-side">
-              <div class="box-topic">Total Sales</div>
-              <div class="number">38,876</div>
-              <div class="indicator">
-                <i class="bx bx-up-arrow-alt"></i>
-                <span class="text">Up from yesterday</span>
-              </div>
-            </div>
-            <i class="bx bxs-cart-add cart two"></i>
-          </div>
-          <div class="box">
-            <div class="right-side">
-              <div class="box-topic">Total Profit</div>
-              <div class="number">$12,876</div>
-              <div class="indicator">
-                <i class="bx bx-up-arrow-alt"></i>
-                <span class="text">Up from yesterday</span>
-              </div>
-            </div>
-            <i class="bx bx-cart cart three"></i>
-          </div>
-          <div class="box">
-            <div class="right-side">
-              <div class="box-topic">Total Return</div>
-              <div class="number">11,086</div>
-              <div class="indicator">
-                <i class="bx bx-down-arrow-alt down"></i>
-                <span class="text">Down From Today</span>
-              </div>
-            </div>
-            <i class="bx bxs-cart-download cart four"></i>
-          </div>
-        </div>
-
+      
         <div class="sales-boxes">
           <div class="recent-sales box">
-            <div class="title">liste</div>
-            <div class="sales-details">
-          <ul class="details">
-                <li class="topic">case</li>
-                              </ul>
-              <ul class="details">
-                <li class="topic">case</li>
-                             </ul>
-              <ul class="details">
-    <li class="topic">case</li>
-
-        </ul>
-
-          
-             
-  
-            </div>
-            <div class="button">
-              <a href="#">See All</a>
-            </div>
-          
+           <div style="padding-left: 20%;">
+        <div style="padding-top: 10%;">
+       <div style="padding-left: 20%;">
+        <div style="padding-top: 10%;">
+          <div style="padding-left: 20%;">
+    <div style="padding-top: 10%;">
+        <h1>Create new Remise</h1>
+        
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_row(form.montant) }}
+        {{ form_row(form.pourcentage) }}
+        <div id="montantaprespourcentage-container">
+            {{ form_row(form.montantaprespourcentage) }}
         </div>
-      </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        {{ form_end(form) }}
+
+        <a href="{{ path('app_remise_index') }}">Back to list</a>
+        {# Add the download button #}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form'); // Select the form element
+
+        // Disable HTML5 validation
+        form.setAttribute('novalidate', 'novalidate');
+
+        // Custom validation logic
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault(); // Prevent form submission if validation fails
+                alert('le montant et pourcentage ils faut etre numéro et superieur à 0.');
+            }
+        });
+
+        const montantField = document.getElementById('remise_montant');
+        const pourcentageField = document.getElementById('remise_pourcentage');
+        const montantApresPourcentageField = document.getElementById('remise_montantaprespourcentage');
+
+        montantField.addEventListener('input', updateMontantApresPourcentage);
+        pourcentageField.addEventListener('input', updateMontantApresPourcentage);
+
+        function updateMontantApresPourcentage() {
+            const montant = parseFloat(montantField.value);
+            const pourcentage = parseFloat(pourcentageField.value);
+            const montantApresPourcentage = montant - (montant * pourcentage / 100);
+
+            montantApresPourcentageField.value = isNaN(montantApresPourcentage) ? '' : montantApresPourcentage.toFixed(2);
+        }
+    });
+</script>
+
+
+</div>
+                
+           </div>
     </section>
 
     <script>

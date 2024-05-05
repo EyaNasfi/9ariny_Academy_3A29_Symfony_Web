@@ -32,7 +32,7 @@ class HomeController extends AbstractController
     #[Route('/affiche1', name: "affiche1")]
     public function index0(): Response
     {
-        return $this->render('rating.html.twig');
+        return $this->render('test1.html.twig');
     }
    
     

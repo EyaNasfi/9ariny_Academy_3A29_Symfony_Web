@@ -3,6 +3,34 @@
 #    controller: App\Controller\DefaultController::index
 # config/routes.yaml
 
+
+
+app_remise_index:
+    path: /remise
+    controller: App\Controller\RemiseController::index
+    methods: [GET]
+
+
+app_remise_new:
+    path: /remise/new
+    controller: App\Controller\RemiseController::new
+    methods: [GET, POST]
+
+app_remise_show:
+    path: /remise/{id}
+    controller: App\Controller\RemiseController::show
+    methods: [GET]
+
+app_remise_edit:
+    path: /remise/{id}/edit
+    controller: App\Controller\RemiseController::edit
+    methods: [GET, POST]
+
+app_remise_delete:
+    path: /remise/{id}
+    controller: App\Controller\RemiseController::delete
+    methods: [POST]
+
 app_chat:
     path: /chat
     controller: App\Controller\ChatController::chat

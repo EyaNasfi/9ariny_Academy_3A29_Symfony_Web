@@ -196,7 +196,7 @@ formation.style.display = 'none';
                                 <li class="list-group-item">Coût: {{ formation.getcout() }}</li>
                                 <li class="list-group-item">Categorie: {{ formation.getCategorie() }}</li>
                             </ul>
-                            <a href="{{ path('afficheCoursFront') }}" class="btn btn-primary">Détails</a>
+                            <a href="{{ path('checkout') }}" class="btn btn-primary">Détails</a>
                            <a href="{{ path('insert_feedback') }}" class="btn btn-primary" >feedbacks</a>
                             <div class="rating" data-formation-id="{{ formation.getIidDeFormation() }}">
                                 <ul class="stars">

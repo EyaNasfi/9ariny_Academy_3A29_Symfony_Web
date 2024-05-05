@@ -214,7 +214,7 @@ $cour->setIdformation($selectedFormation); // Utilisez $selectedFormation au lie
     }
     
 
-    #[Route('/scan-qr-code', name: 'scan_qr_code')]
+   /* #[Route('/scan-qr-code', name: 'scan_qr_code')]
 public function scanQrCodeAction(Request $request, CourFormationRepository $repo): Response
 {
     // Récupérer l'ID du cours à partir du QR code
@@ -234,7 +234,7 @@ public function scanQrCodeAction(Request $request, CourFormationRepository $repo
 
     // Rediriger l'utilisateur vers l'URL de recherche
     return $this->redirect($searchUrl);
-}
+}*/
 #[Route('/Youtube', name: 'Youtube')]
 public function youtubeapi(\App\Service\YouTubeService $youtubeService, CourFormationRepository $courRepository): Response
 {
@@ -252,5 +252,7 @@ public function youtubeapi(\App\Service\YouTubeService $youtubeService, CourForm
         'response' => $response,
     ]);
 }
+
+
 
 }

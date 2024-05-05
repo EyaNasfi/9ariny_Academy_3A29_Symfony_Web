@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    stripe_secret_key: 'sk_test_51P6dihBtpAjMlV8bUFIDKoPF9JdQFNc4qo6lM44lOrGMi0Iv9SdfAHu3B1J2tPB8wjshqhxiYKiIVCSRzcWTKshp00PEbveIOB'
     description_cours_directory: '%kernel.project_dir%/public/uploads'
     images_directory: '%kernel.project_dir%/public/uploads1/images'
     survey_monkey_access_token: '%env(SURVEY_MONKEY_ACCESS_TOKEN)%'
@@ -12,6 +13,8 @@ parameters:
     facebook_page_access_token: '%env(FACEBOOK_PAGE_ACCESS_TOKEN)%'
 
 services:
+    App\Service\PdfGeneratorService:
+        public: true
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

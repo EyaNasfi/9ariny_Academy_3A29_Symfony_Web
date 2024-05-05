@@ -1,0 +1,14 @@
+{% extends 'affiche.html.twig' %}
+
+{% block body %}
+<div style="padding-left: 20%;">
+        <div style="padding-top: 10%;">
+    <h1>Envoyer Email pour votre étudiant</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.destination) }}
+    
+    <button type="submit">Send</button>
+    {{ form_end(form) }}
+{% endblock %}

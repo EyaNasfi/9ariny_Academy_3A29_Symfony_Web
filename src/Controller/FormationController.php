@@ -123,6 +123,7 @@ public function triFormation(FormationRepository $formationRepository, $critere)
         'tri' => $critere, // Passer la variable 'tri' au template
     ]);
 }
+
 #[Route('/statistiques', name: 'statistiques')]
 public function statistiques(FormationRepository $formationRepository, SerializerInterface $serializer): Response
 {

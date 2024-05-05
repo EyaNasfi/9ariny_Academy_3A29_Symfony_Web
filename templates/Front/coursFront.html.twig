@@ -126,10 +126,10 @@
                             <h5 class="card-title">{{ cour.nomCours }}</h5>
                             <a href="{{ path('download_pdf', {'idcour': cour.idcour}) }}">Download PDF</a>
                            
-                            <div id="qrcode_{{ cour.idcour }}"></div>
-                            <script>
+                           <div id="qrcode_{{ cour.idcour }}"></div>
+<script>
     var qrcode_{{ cour.idcour }} = new QRCode(document.getElementById("qrcode_{{ cour.idcour }}"), {
-        text: "{{ cour.nomCours }}", // Utiliser le nom du cours directement
+        text: "https://www.google.com/search?q={{ cour.nomCours|url_encode }}",
         width: 90,
         height: 90
     });

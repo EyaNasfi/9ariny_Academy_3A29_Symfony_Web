@@ -2,58 +2,79 @@
 
 namespace App\Entity;
 
+use App\Repository\RemiseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Remise
- *
- * @ORM\Table(name="remise", indexes={@ORM\Index(name="iduser", columns={"iduser"}), @ORM\Index(name="idpaiement", columns={"idpaiement"})})
- * @ORM\Entity
- */
+
+
+
+#[ORM\Entity(repositoryClass: RemiseRepository::class)]
+
+
 class Remise
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idremise", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idremise;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="pourcentage", type="integer", nullable=false)
-     */
-    private $pourcentage;
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Le montant ne peut pas être vide')]
+    #[Assert\GreaterThan(value: 0, message: 'Le montant doit être supérieur à 0')]
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="montantapresremise", type="integer", nullable=false)
-     */
-    private $montantapresremise;
+    private ?float $montant = null;
 
-    /**
-     * @var \Paiement
-     *
-     * @ORM\ManyToOne(targetEntity="Paiement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idpaiement", referencedColumnName="idpaiement")
-     * })
-     */
-    private $idpaiement;
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Le pourcentage ne peut pas être vide')]
+    #[Assert\GreaterThan(value: 0, message: 'Le pourcentage doit être supérieur à 0')]
+    private ?int $pourcentage = null;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="iduser", referencedColumnName="id")
-     * })
-     */
-    private $iduser;
+    #[ORM\Column]
+    private ?float $montantaprespourcentage = null;
 
+   
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getMontant(): ?float
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(float $montant): static
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getPourcentage(): ?int
+    {
+        return $this->pourcentage;
+    }
+
+    public function setPourcentage(int $pourcentage): static
+    {
+        $this->pourcentage = $pourcentage;
+
+        return $this;
+    }
+
+    public function getMontantaprespourcentage(): ?float
+    {
+        return $this->montantaprespourcentage;
+    }
+
+    public function setMontantaprespourcentage(float $montantaprespourcentage): static
+    {
+        $this->montantaprespourcentage = $montantaprespourcentage;
+
+        return $this;
+    }
+
+   
 }

@@ -1,0 +1,20 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Payment Success!{% endblock %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="text-center">
+            {{ parent() }}
+
+            <h1>Paiement terminé avec succès !</h1>
+            <p>
+                Montant: {{ montant }} USD<br>
+                Moyen de paiement: {{ moyenDePaiement }}<br>
+                Email: {{ email }}<br>
+                Date: {{ date | date('Y-m-d H:i:s') }}
+            </p>
+            <a href="{{ path('afficheCoursFront') }}" class="btn btn-primary">accéder au cours</a>
+        </div>
+    </div>
+{% endblock %}
