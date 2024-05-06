@@ -1,17 +1,49 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
-home:
-    path: /
-<<<<<<< HEAD
-    controller: App\Controller\HomeController::home
-login:
-    path: /login
-    controller: App\Controller\SecurityController::login
+app_remise_index:
+    path: /remise
+    controller: App\Controller\RemiseController::index
+    methods: [GET]
 
-logout:
-    path: /logout
-    controller: App\Controller\SecurityController::logout
-=======
-    controller: App\Controller\HomeController::home
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
+
+app_remise_new:
+    path: /remise/new
+    controller: App\Controller\RemiseController::new
+    methods: [GET, POST]
+
+app_remise_show:
+    path: /remise/{id}
+    controller: App\Controller\RemiseController::show
+    methods: [GET]
+
+app_remise_edit:
+    path: /remise/{id}/edit
+    controller: App\Controller\RemiseController::edit
+    methods: [GET, POST]
+
+app_remise_delete:
+    path: /remise/{id}
+    controller: App\Controller\RemiseController::delete
+    methods: [POST]
+
+send_mail:
+    path: /send-mail
+    controller: App\Controller\MailController::sendMail
+
+app_payment:
+  path: /payment
+  controller: App\Controller\PaymentController::index
+  methods: GET
+
+checkout:
+  path: /checkout
+  controller: App\Controller\PaymentController::checkout
+  methods: POST
+
+success_url:
+  path: /success-url
+  controller: App\Controller\PaymentController::successUrl
+  methods: GET
+
+cancel_url:
+  path: /cancel-url
+  controller: App\Controller\PaymentController::cancelUrl
+  methods: GET

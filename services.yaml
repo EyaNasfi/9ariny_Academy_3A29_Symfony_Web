@@ -4,28 +4,15 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    app.autoload: 'C:\Users\Eya\projet\vendor\autoload.php'
+    stripe_secret_key: 'sk_test_51P6dihBtpAjMlV8bUFIDKoPF9JdQFNc4qo6lM44lOrGMi0Iv9SdfAHu3B1J2tPB8wjshqhxiYKiIVCSRzcWTKshp00PEbveIOB'
 services:
-<<<<<<< HEAD
-  
-
-   
-=======
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
+    App\Service\PdfGeneratorService:
+        public: true
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-<<<<<<< HEAD
-    endroid.qr_code.builder:
-        class: Endroid\QrCode\Builder\Builder
-  
-    Endroid\QrCode\Builder\BuilderInterface: '@endroid.qr_code.builder'
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-=======
 
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -34,11 +21,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
