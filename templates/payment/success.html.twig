@@ -1,0 +1,15 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Payment Success!{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <h1>Paiement términé avec succées !</h1>
+    <p>
+        Montant: {{ montant }} USD<br>
+        Moyen de paiement: {{ moyenDePaiement }}<br>
+        Email: {{ email }}<br>
+        Date: {{ date | date('Y-m-d H:i:s') }}
+    </p>
+{% endblock %}
