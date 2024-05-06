@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Quiz;
 use App\Form\QuizType;
+<<<<<<< HEAD
+use Symfony\Component\Mime\Email;
+=======
+>>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
 use App\Repository\QuizRepository;
 use App\Repository\UserRepository;
 use App\Repository\ReponseRepository;
@@ -14,13 +18,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+<<<<<<< HEAD
+use Symfony\Component\DependencyInjection\Loader\Configurator\mailer;
+=======
+>>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
 
 class QuizController extends AbstractController
 {
     #[Route('/quiz', name: 'app_quiz')]
     public function ajouter(Request $req,EntityManagerInterface $em ,UserRepository $userRepository,QuizRepository $qr ,ReclamationRepository $rep,ReponseRepository $re,QuestionsRepository $qq): Response
     {
+<<<<<<< HEAD
+        $user=$userRepository->findOneBy(['iduser' => 4]);    
+=======
         $user=$userRepository->findOneBy(['id' => 4]);    
+>>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
     $quiz = new Quiz();
     $quiz->setIdUser($user);
     $form = $this->createForm(QuizType::class,$quiz); //n3ml formulaire  b reclamationtyoe eli fiha champs ta3 entity
@@ -135,11 +147,14 @@ $pourcentagequest = ($totalQuizzes / $totalQuest) * 100;
     #[Route('/quiz/front/afficherquiz', name: 'app_afficherfront')]
     public function affichefront(QuizRepository $rep ,QuestionsRepository $reppp,Request $request){
         $q = $rep->findAll();
+<<<<<<< HEAD
+=======
         $note = $request->request->get('note', 0);
 
 
         // Stocker la note dans la session
         $request->getSession()->set('note', $note);
+>>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
         return $this->render('/quiz/front/passerquiz.html.twig', [
             'quizs'=>$q, 'questions'=>$reppp->findAll(),   
 
