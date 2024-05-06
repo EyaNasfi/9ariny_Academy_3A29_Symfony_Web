@@ -18,11 +18,7 @@ class UserController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function ajouter(Request $req,EntityManagerInterface $em ,UserRepository $userRepository ): Response
     {
-<<<<<<< HEAD
-        $user=$userRepository->findOneBy(['iduser' => 4]);    
-=======
         $user=$userRepository->findOneBy(['id' => 4]);    
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
     $u = new User();
     $form = $this->createForm(UserType::class,$u); //n3ml formulaire  b reclamationtyoe eli fiha champs ta3 entity
     $form->handleRequest($req); //traitement de requete  , 

@@ -1,16 +1,10 @@
 <?php
 
 namespace App\Controller;
-<<<<<<< HEAD
-use Dompdf\Dompdf;
-use Dompdf\Options;
-use Knp\Snappy\Pdf;
-=======
 use Dompdf\Options;
 use Knp\Snappy\Pdf;
 
 use Dompdf\Dompdf;
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
 use App\Entity\Quiz;
 use App\Entity\User;
 use App\Form\UserType;
@@ -23,24 +17,10 @@ use App\Repository\ReclamationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-=======
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-<<<<<<< HEAD
-    private $session;
-
-    public function __construct(SessionInterface $session)
-    {
-        $this->session = $session;
-    }
-
-=======
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
     #[Route('/home', name: 'app_home')]
     public function home(ReponseRepository $rep,ReclamationRepository $r): Response
     {
@@ -48,11 +28,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController','Reponses'=>$rep->findAll(),'Reclamations'=>$r->findAll()
         ]);
     }
-<<<<<<< HEAD
-        #[Route('/certif', name: 'app_certif')]
-=======
     #[Route('/certif', name: 'app_certif')]
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
     public function certif(QuizRepository $rep,Request $request): Response
     {
         $q = $rep->findAll();
@@ -97,15 +73,6 @@ public function certifPdf(QuizRepository $rep, Request $request): Response
         ]);
         
     }
-<<<<<<< HEAD
-    #[Route('/backhome', name: 'app_backhome')]
-    public function backhome(): Response
-    {
-        return $this->render('backhome.html.twig', [
-        ]);
-    }
-=======
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
     #[Route('/map', name: 'app_map')]
     public function map(): Response
     {
@@ -134,9 +101,6 @@ public function certifPdf(QuizRepository $rep, Request $request): Response
             'controller_name' => 'aboutController',
         ]);
     }
-<<<<<<< HEAD
-   
-=======
     #[Route('/inscription', name: 'app_inscription')]
     public function inscription(Request $req,EntityManagerInterface $em ,UserRepository $userRepository ): Response
     {
@@ -155,5 +119,4 @@ public function certifPdf(QuizRepository $rep, Request $request): Response
             return $this->render('register.html.twig', [
                 'form' => $form->createView()        ]);
         }
->>>>>>> 8a5127b73af85eafd808d9a7d90dbf04c8bb4518
 }

@@ -2,54 +2,62 @@
 
 namespace App\Entity;
 
-use App\Repository\RemiseRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
-
-
-
-#[ORM\Entity(repositoryClass: RemiseRepository::class)]
-
-
+/**
+ * Remise
+ *
+ * @ORM\Table(name="remise", indexes={@ORM\Index(name="idpaiement", columns={"idpaiement"}), @ORM\Index(name="iduser", columns={"iduser"})})
+ * @ORM\Entity
+ */
 class Remise
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idremise", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idremise;
 
-    #[ORM\Column]
-    #[Assert\NotBlank(message: 'Le montant ne peut pas être vide')]
-    #[Assert\GreaterThan(value: 0, message: 'Le montant doit être supérieur à 0')]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="pourcentage", type="integer", nullable=false)
+     */
+    private $pourcentage;
 
-    private ?float $montant = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="montantapresremise", type="integer", nullable=false)
+     */
+    private $montantapresremise;
 
-    #[ORM\Column]
-    #[Assert\NotBlank(message: 'Le pourcentage ne peut pas être vide')]
-    #[Assert\GreaterThan(value: 0, message: 'Le pourcentage doit être supérieur à 0')]
-    private ?int $pourcentage = null;
+    /**
+     * @var \Paiement
+     *
+     * @ORM\ManyToOne(targetEntity="Paiement")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idpaiement", referencedColumnName="idpaiement")
+     * })
+     */
+    private $idpaiement;
 
-    #[ORM\Column]
-    private ?float $montantaprespourcentage = null;
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="iduser", referencedColumnName="id")
+     * })
+     */
+    private $iduser;
 
-   
-
-    public function getId(): ?int
+    public function getIdremise(): ?int
     {
-        return $this->id;
-    }
-
-    public function getMontant(): ?float
-    {
-        return $this->montant;
-    }
-
-    public function setMontant(float $montant): static
-    {
-        $this->montant = $montant;
-
-        return $this;
+        return $this->idremise;
     }
 
     public function getPourcentage(): ?int
@@ -64,17 +72,41 @@ class Remise
         return $this;
     }
 
-    public function getMontantaprespourcentage(): ?float
+    public function getMontantapresremise(): ?int
     {
-        return $this->montantaprespourcentage;
+        return $this->montantapresremise;
     }
 
-    public function setMontantaprespourcentage(float $montantaprespourcentage): static
+    public function setMontantapresremise(int $montantapresremise): static
     {
-        $this->montantaprespourcentage = $montantaprespourcentage;
+        $this->montantapresremise = $montantapresremise;
 
         return $this;
     }
 
-   
+    public function getIdpaiement(): ?Paiement
+    {
+        return $this->idpaiement;
+    }
+
+    public function setIdpaiement(?Paiement $idpaiement): static
+    {
+        $this->idpaiement = $idpaiement;
+
+        return $this;
+    }
+
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): static
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
+
 }

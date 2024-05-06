@@ -7,36 +7,25 @@ use Twilio\Rest\Client;
 
 use App\Entity\Reclamation;
 use App\Form\ReclamationType;
-use App\Services\MailerService;
 use App\Repository\QuizRepository;
 use App\Repository\UserRepository;
-use Symfony\Component\Mailer\Mailer;
 use App\Repository\ReponseRepository;
 use App\Repository\QuestionsRepository;
-use Symfony\Component\Mailer\Transport;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReclamationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class ReclamationController extends AbstractController
 {
-    private $session;
-
-    public function __construct(SessionInterface $session)
-    {
-        $this->session = $session;
-    }
-
     #[Route('/front', name: 'app_reclamation')]
 
     public function ajouter(Request $req,EntityManagerInterface $em , UserRepository $userRepository,ReclamationRepository $r,ReponseRepository $re): Response
     {
-    $user=$userRepository->findOneBy(['iduser' => 4]);    
+    $user=$userRepository->findOneBy(['id' => 4]);    
     $reclamation = new Reclamation();
     $reclamation->setIdUser($user);
    // $reclamation->setIduser(2);
@@ -110,30 +99,6 @@ public function modifier(Request $req,$id, ReclamationRepository $rep){
         return $this->render('/reclamation/front/modifier.html.twig', [
             'f' => $form->createView() ,'Reclamations' => $rep->findAll()    
     ]);
-}
-#[Route('/app', name: 'app_front')]
-    public function index(): Response
-    {
-        return $this->render('signin.html.twig', []);
-    }
-#[Route('/login', name: 'app_login')]
-public function login(Request $request): Response
-{
-    if ($request->isMethod('POST')) {
-        $email = $request->request->get('email');
-        $password = $request->request->get('password');
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $account = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
-        if ($account && $password==$account->getMdp()) {
-            $this->session->set('User', $account);
-            return $this->redirectToRoute('app_afficherreclamation');
-        } else {
-            // Authentication failed, display an error message or redirect back to the login page
-            return $this->redirectToRoute('app_afficherreclamation');
-        }
-    }
-    return $this->render('signin.html.twig');
 }
 #[Route('/reclamation/back/afficher', name: 'app_afficherreclamation')]
 public function afficheback(Request $request,ReclamationRepository $rep,ReponseRepository $re,QuestionsRepository $qq,QuizRepository $qr){
@@ -393,24 +358,5 @@ public function about(): Response
         'controller_name' => 'aboutController',
     ]);
 }
- #[Route('/forgot-password', name: 'forgot_password')]
-    public function forgotPassword(Request $request): Response
-    {
-       
-            $mailerDsn = 'gmail://firas.guesmi93806411@gmail.com:kyld%20wmzb%20finx%20dmns@default';
-        
-            $transport = Transport::fromDsn($mailerDsn);
-        
-            $mailer = new Mailer($transport);
-            $mailerService = new MailerService($mailer);        
-            $message = "message";
-            
-            $mailerService->sendEmail($message);  
-
-            
-           
-            return $this->redirectToRoute('password_reset_page');
- 
-    }
 
 }
