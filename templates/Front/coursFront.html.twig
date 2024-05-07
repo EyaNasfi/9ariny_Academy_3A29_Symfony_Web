@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>eLEARNING - eLearning HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+        <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar Start -->
+     <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center px-10 px-lg-25">
+       <h1 class="m-0 text-primary"><img  src="/9A.png" >9arinyAcademy</h1>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{path('home')}}" class="nav-item nav-link ">Accueil</a>
+             <div id="translation"></div>
+
+                <a href="{{path('Front')}}" class="nav-item nav-link active">Cours</a>
+                 <a href="{{path('app_afficherfront')}}" class="nav-item nav-link ">Quizs</a>
+                                  <a href="{{path('app_affichereventfront')}}" class="nav-item nav-link " >Evenements</a>
+                  <a href="{{path('app_reclamation')}}" class="nav-item nav-link ">Reclamations</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="{{path('app_afficherclubfront')}}" class="dropdown-item">Clubs</a>
+                        <a href="team.html" class="dropdown-item">Paiements </a>
+                        <a href="{{path('app_team')}}" class="dropdown-item">Notre Equipe</a>
+                        <a href="{{path('app_about')}}" class="dropdown-item">A propos</a>
+                        <a href="{{path('app_contact')}}" class="dropdown-item">Contactez-nous</a>
+                        <a href="{{path('app_map')}}" class="dropdown-item">Emplacement</a>
+                         <a href="{{path('app_salle_index')}}" class="dropdown-item ">Salles</a>
+
+                    </div>
+                </div>
+            </div>
+                        <a href="{{path('app_inscription')}}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Rejoindrez-Nous<i class="fa fa-arrow-right ms-3"></i></a>
+
+            </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Courses</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Courses</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Categories Start -->
+    <div class="container-xxl py-5 category">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
+                <h1 class="mb-5">Nos Cours</h1>
+            </div>
+        
+
+
+
+<section class="service_section layout_padding">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <div class="container">
+        <div class="heading_container">
+            <h2></h2>
+        </div>
+        <div class="row">
+            {% for cour in Cours %}
+                <div class="col-md-6 col-lg-4 formation-item">
+                    <div class="diamond">
+                        <div class="card-body">
+                            <div class="card-img-container">
+                                <img href="{{ asset('css/style.css') }}" src="{{ asset('img/formation_images/' ~ cour.nomCours|replace({' ': '_', 'sécurité': 'securite'}) ~ '.png') }}" alt="{{ cour.nomCours }}" class="card-img">
+                            </div>
+                            <h5 class="card-title">{{ cour.nomCours }}</h5>
+                            <a href="{{ path('download_pdf', {'idcour': cour.idcour}) }}">Download PDF</a>
+                           
+                           <div id="qrcode_{{ cour.idcour }}"></div>
+<script>
+    var qrcode_{{ cour.idcour }} = new QRCode(document.getElementById("qrcode_{{ cour.idcour }}"), {
+        text: "https://www.google.com/search?q={{ cour.nomCours|url_encode }}",
+        width: 90,
+        height: 90
+    });
+</script>
+<div>
+{% set url = absolute_url(path('download_pdf', {'idcour': cour.nomCours})) %}
+<a href="https://www.facebook.com/sharer/sharer.php?u={{ url }}{{ cour.nomCours }}" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Partager sur Facebook" style="width: 40px; height: 40px;">
+</a>
+
+
+{% set url = absolute_url(path('download_pdf', {'idcour': cour.idcour})) %}
+<a href="https://twitter.com/intent/tweet?url={{ url }}{{ cour.nomCours }}" target="_blank">
+    <img src="img/formation_images/twiter.jpg
+" alt="Partager sur Twitter" style="width: 40px; height: 40px;">
+</a>
+<div>
+											{# Map each course to its corresponding video ID #}
+											{% set videoId = {
+                        'javaFX': 'FGU-imprdKs',
+                        'polymorthisme': '7KSA2kDAs8M',
+                        'xxxxxxxxxx': 'zM_Qf07fEyc',
+                        'Interface': 'O7Vx1jYYpWI',
+                        'Exeptions': 'UEISfoJaOyk',
+                        'POO': 'xk4_1vDrzzo&t=1s',
+                        'c': 'dTp0c41XnrQ',
+						'symfony': 'MPGbdYby4_s',
+                        'c++': 'RSDzvlXmQi4'
+
+                        }[cour.nomCours] ?? null %}
+
+											{% if videoId is not null %}
+												<div>
+													<iframe width="340" height="200" src="https://www.youtube.com/embed/{{ videoId }}" frameborder="0" allowfullscreen></iframe>
+												</div>
+											{% else %}
+												<p>No video available for this course</p>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+</div>
+                       
+                    
+                </div>
+            {% endfor %}
+        </div>
+        {{ knp_pagination_render(Cours) }}
+
+    </div>
+</section>
+<a href="{{ path('webhook') }}" class="btn btn-primary">Help</a>
+ 			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+const formationItems = document.querySelectorAll('.formation-item');
+
+// Object to keep track of whether a message has been shown for each item
+const messageShown = {};
+
+formationItems.forEach(item => {
+item.addEventListener('mouseover', function () {
+const course = item.getAttribute('data-course');
+// Check if message has been shown for this item
+if (! messageShown[course]) {
+let message = '';
+switch (course) {
+case 'Encapsulation': message = 'Java is a powerful and versatile programming language used for a wide range of applications.';
+break;
+case 'polymorthisme': message = 'Explore mobile app development and create your own apps for iOS and Android platforms.';
+break;
+case 'c': message = 'C is a foundational programming language known for its efficiency and versatility, used in system programming and embedded systems.';
+break;
+case 'c++': message = 'C++ is an extension of the C programming language with added features for object-oriented programming and generic programming.';
+break;
+case 'bdd': message = 'Learn about Database Design and Development, covering topics like data modeling, normalization, and SQL.';
+break;
+case 'symfony': message = 'Symfony is a popular PHP framework for building web applications with a focus on speed, flexibility, and reusable components.';
+break;
+case 'javascript': message = 'JavaScript is a key programming language for web development, enabling dynamic and interactive user experiences.';
+break;
+case 'sql': message = 'SQL (Structured Query Language) is essential for managing and querying relational databases, used in a wide range of applications.';
+break;
+default: message = 'No specific message available for this course';
+break;
+}
+// Display message only if it hasn't been shown before
+if (message) {
+Swal.fire({
+title: 'Course Details',
+html: message,
+background: '#f3f3f3', // Change background color here
+showCloseButton: true,
+focusConfirm: false
+});
+// Set the flag to true to indicate that message has been shown for this item
+messageShown[course] = true;
+}
+}
+});
+});
+});
+			</script>
+			<style>
+				/* Add space at the bottom of each card */
+				.custom-card {
+					margin-bottom: 20px; /* Adjust the value as needed */
+				}
+
+				/* Add space between rows of cards */
+				.row {
+					margin-bottom: 20px; /* Adjust the value as needed */
+				}
+				.custom-card {
+					background-color: #41B8D5;
+					/* Set the background color of the card */
+					color: white;
+					/* Set the text color of the card */
+					border: none;
+					/* Remove the border from the card */
+					border-radius: 10px;
+					/* Add some border-radius for rounded corners */
+					box-shadow: 0 6px 8px rgba(0, 0, 0, 0.8);
+					/* Add a box-shadow for a subtle effect */
+					transition: transform 0.3s ease;
+					/* Add a smooth transition effect */
+				}
+
+				.custom-card:hover {
+					transform: translateY(-5px);
+					/* Move the card up slightly on hover */
+				}
+			</style>
+
+
+
+    <!-- Categories Start -->
+
+
+    <!-- Courses Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Cours</h6>
+                <h1 class="mb-5">Cours populaires</h1>
+            </div>
+            </div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item bg-light">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="img/course-1.jpg" alt="">
+                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
+                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                    
+
+                    
+    <!-- Courses End -->
+
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-primary px-3">Témoignage</h6>
+                <h1 class="mb-5">Les Etudiants disent !</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel position-relative">
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-1.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">sarra</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Qualité de formation est trés qualifiés</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-2.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">ahmed</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">J'aime bien le centre et les professeurs</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-3.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">hedi</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Les professeurs sont tres qualifiés</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0"> houda</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Je recommande </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+        
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <a class="btn btn-link" href="">A propos</a>
+                    <a class="btn btn-link" href="">Contactez-nous</a>
+                    <a class="btn btn-link" href="">Privacy Policy</a>
+                    <a class="btn btn-link" href="">Conditions</a>
+                    <a class="btn btn-link" href="">Aide</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Gallerie</h4>
+                    <div class="row g-2 pt-2">
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Newsletter</h4>
+                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">Ton Site Nom</a>, All Right Reserved.
+
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a><br><br>
+                        Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="">Accueil</a>
+                            <a href="">Cookies</a>
+                            <a href="">Aide</a>
+                            <a href="">FQAs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+{% block js %}
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+</body>
+{% endblock %}
+</html>

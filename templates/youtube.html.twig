@@ -1,0 +1,12 @@
+<h2>YouTube Video</h2>
+{% if response.items is defined and response.items|length > 0 %}
+	{% set item = response.items[0] %}
+	{# Assuming you want to display the first video from the response #}
+	{% set videoId = item.id.videoId %}
+	<div>
+		<h3>{{ item.snippet.title }}</h3>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ videoId }}" frameborder="0" allowfullscreen></iframe>
+	</div>
+{% else %}
+	<p>No videos found</p>
+{% endif %}

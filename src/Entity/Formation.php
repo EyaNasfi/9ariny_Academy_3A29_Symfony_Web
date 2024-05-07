@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Entity;
-
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,6 +70,13 @@ class Formation
     private $coût;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="note", type="integer", nullable=false)
+     */
+    private $note;
+
+    /**
      * @var \Categorie
      *
      * @ORM\ManyToOne(targetEntity="Categorie")
@@ -79,108 +84,100 @@ class Formation
      *   @ORM\JoinColumn(name="nomCategorie", referencedColumnName="nomCategorie")
      * })
      */
-    private $nomcategorie;
-
-    public function getIdDeFormation(): ?int
+    private $nomCategorie;
+    public function getIidDeFormation(): int
     {
         return $this->idDeFormation;
     }
 
-    public function getNomDeFormation(): ?string
+    public function getNomDeFormation(): string
     {
         return $this->nomDeFormation;
     }
 
-    public function setNomDeFormation(string $nomDeFormation): static
+    public function setNomDeFormation(string $nomDeFormation): void
     {
         $this->nomDeFormation = $nomDeFormation;
-
-        return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
-    public function getDurée(): ?string
+    public function getDuree(): string
     {
         return $this->durée;
     }
 
-    public function setDurée(string $durée): static
+    public function setDuree(string $duree): void
     {
-        $this->durée = $durée;
-
-        return $this;
+        $this->durée = $duree;
     }
 
-    public function getNiveau(): ?string
+    public function getNiveau(): string
     {
         return $this->niveau;
     }
 
-    public function setNiveau(string $niveau): static
+    public function setNiveau(string $niveau): void
     {
         $this->niveau = $niveau;
-
-        return $this;
     }
 
-    public function getDateDeb(): ?\DateTimeInterface
+    public function getDateDeb(): \DateTimeInterface
     {
         return $this->dateDeb;
     }
 
-    public function setDateDeb(\DateTimeInterface $dateDeb): static
+    public function setDateDeb(\DateTimeInterface $dateDeb): void
     {
         $this->dateDeb = $dateDeb;
-
-        return $this;
     }
 
-    public function getDateFin(): ?\DateTimeInterface
+    public function getDateFin(): \DateTimeInterface
     {
         return $this->dateFin;
     }
 
-    public function setDateFin(\DateTimeInterface $dateFin): static
+    public function setDateFin(\DateTimeInterface $dateFin): void
     {
         $this->dateFin = $dateFin;
-
-        return $this;
     }
 
-    public function getCoût(): ?string
+    public function getCout(): string
     {
         return $this->coût;
     }
 
-    public function setCoût(string $coût): static
+    public function setCout(string $cout): void
     {
-        $this->coût = $coût;
-
-        return $this;
+        $this->coût = $cout;
     }
 
-    public function getNomcategorie(): ?Categorie
+    public function getNote(): int
     {
-        return $this->nomcategorie;
+        return $this->note;
     }
 
-    public function setNomcategorie(?Categorie $nomcategorie): static
+    public function setNote(int $note): void
     {
-        $this->nomcategorie = $nomcategorie;
-
-        return $this;
+        $this->note = $note;
     }
 
+    public function getNomCategorie(): ?Categorie
+    {
+        return $this->nomCategorie;
+    }
+
+    public function setNomCategorie(?Categorie $nomCategorie): void
+    {
+        $this->nomCategorie = $nomCategorie;
+    }
 
 }

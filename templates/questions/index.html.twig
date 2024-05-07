@@ -1,33 +1,16 @@
+<!DOCTYPE html>
 <!-- Website - www.codingnepalweb.com -->
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-   {% block title %} <title>Responsiive Admin Dashboard | 9ariny-Academy</title>{% endblock %}
-
+    <title>Responsiive Admin Dashboard | 9ariny-Academy</title>
     <script src="https://kit.fontawesome.com/7e57645445.js" crossorigin="anonymous"></script>
-
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css" />
-        <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
     <style>
     /* Googlefont Poppins CDN Link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
@@ -473,16 +456,20 @@ nav .profile-details i{
     <!-- Boxicons CDN Link -->
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   </head>
-  {% block body %}
   <body>
- <div class="sidebar">
+    <div class="sidebar">
       <div class="logo-details">
-        <img src="/log.png">9ariny-Academy</img>
+     <img src="/log.png" ></img>
+
       </div>
          <ul class="nav-links">
-      
+       <li>
+          <a href="{{path('app_backhome')}}">
+            <i class="fa fa-home"></i>
+            <span class="links_name">Dashboard admin</span>
+          </a>
+        </li>
         <li>
          <a href="{{ path('app_afficherreclamation')}}" >
  <i class="fa-solid fa-school-circle-exclamation"></i>            
@@ -490,19 +477,19 @@ nav .profile-details i{
           </a>
         </li>
         <li>
-       <a href="{{ path('app_quiz')}}"  class="active">
-           <i class="fa-solid fa-file-circle-question"></i>
+       <a href="{{ path('app_quiz')}}" class="active">
+           <i class="fa-solid fa-file-circle-question" ></i>
             <span class="links_name">Quiz</span>
           </a>
         </li>
-        <li>
-          <a href="#">
+              <li>
+          <a href="{{path('app_event')}}" >
            <i class="fa-solid fa-calendar-check"></i>        
             <span class="links_name">Evenements</span>
           </a>
         </li>
         <li>
-          <a href="#">
+                    <a href="{{path('app_club')}}">
            <i class="fa-solid fa-puzzle-piece"></i>        
             <span class="links_name">Clubs</span>
           </a>
@@ -527,7 +514,7 @@ nav .profile-details i{
          
         </li>
         <li>
-          <a href="#">
+          <a href="{{path('app_equipement_new')}}">
 <i class="fa-solid fa-wrench"></i>
             <span class="links_name" >Equipements</span>
           </a>
@@ -543,12 +530,6 @@ nav .profile-details i{
           <a href="#">
 <i class="fa-solid fa-user"></i>
             <span class="links_name">Account</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="bx bx-map"></i>
-            <span class="links_name">Map</span>
           </a>
         </li>
        <li>
@@ -649,6 +630,5 @@ nav .profile-details i{
         } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
       };
     </script>
-    {% endblock %}
   </body>
 </html>

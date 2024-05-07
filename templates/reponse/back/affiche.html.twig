@@ -460,70 +460,86 @@ nav .profile-details i{
   <body>
     <div class="sidebar">
       <div class="logo-details">
-        <i class="bx bxl-c-plus-plus"></i>
-        <span class="logo_name">9ariny-Academy</span>
+      <img  src="/9A.png" >
+
       </div>
-      <ul class="nav-links">
-          <li>
-          <a href="{{ path('app_reclamation')}}" >
-            <i class="fa-solid fa-circle-exclamation"></i>
-            <span class="links_name">Ajouter une Reclamation</span>     </a>
+         <ul class="nav-links">
+       <li>
+          <a href="{{path('app_backhome')}}">
+            <i class="bx bx-map"></i>
+            <span class="links_name">Dashboard admin</span>
+          </a>
         </li>
         <li>
-          <a href="{{ path('app_reclamation')}}" class="active">
-            <i class="bx bx-grid-alt"></i>
-           <span class="links_name">Liste des Reclamations</span>
+         <a href="{{ path('app_afficherreclamation')}}" >
+ <i class="fa-solid fa-school-circle-exclamation"></i>            
+ <span class="links_name">Reclamations</span>
+          </a>
+        </li>
+        <li>
+       <a href="{{ path('app_quiz')}}" >
+           <i class="fa-solid fa-file-circle-question" class="active"></i>
+            <span class="links_name">Quiz</span>
           </a>
         </li>
         <li>
           <a href="#">
-            <i class="fa-solid fa-plus"></i>
-            <span class="links_name">Ajouter un quiz</span>
+           <i class="fa-solid fa-calendar-check"></i>        
+            <span class="links_name">Evenements</span>
+          </a>
+        </li>
+      <li>
+          <a href="{{path('app_event')}}" >
+           <i class="fa-solid fa-calendar-check"></i>        
+            <span class="links_name">Evenements</span>
           </a>
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-pie-chart-alt-2"></i>
-            <span class="links_name">Liste des quizs</span>
+                    <a href="{{path('app_club')}}" >
+           <i class="fa-solid fa-puzzle-piece"></i>        
+            <span class="links_name">Clubs</span>
           </a>
         </li>
         <li>
-          <a href="#">
-<i class="fa-regular fa-circle-question"></i>
-              <span class="links_name">Ajouter des questions</span>
+          <a href="{{path('AddCourFormation')}}">
+            <i class="fa-solid fa-book-open-reader"></i>
+            <span class="links_name">Cours</span>
+          </a>
+        </li>
+         <li>
+          <a href="{{path('AddFormation')}}" >
+<i class="fa-solid fa-list"></i>
+            <span class="links_name">Formations</span>
           </a>
         </li>
         <li>
-          <a href="#">
-            <i class="fa-solid fa-file-circle-question"></i>
-            <span class="links_name">Afficher des questions</span>
-                   </a>
+          <a href="{{path('app_salle_new')}}">
+<i class="fa-solid fa-landmark"></i>
+            <span class="links_name" >Salles</span>
+          </a>
+         
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-user"></i>
-            <span class="links_name">Map</span>
+          <a href="{{path('app_equipement_new')}}">
+<i class="fa-solid fa-wrench"></i>
+            <span class="links_name" >Equipements</span>
+          </a>
+         
+        </li>
+         <li>
+          <a href="{{ path('remise_new') }}">
+<i class="fas fa-shopping-cart"></i>
+            <span class="links_name">Paiements</span>
           </a>
         </li>
-        <li>
+         <li>
           <a href="#">
-            <i class="fa-solid fa-house"></i>
-          <span class="dashboard">Dashboard</span>
+<i class="fa-solid fa-user"></i>
+            <span class="links_name">Account</span>
           </a>
         </li>
-        <li>
-          <a href="#">
-            <i class="bx bx-heart"></i>
-            <span class="links_name">Mailling</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="bx bx-cog"></i>
-            <span class="links_name">Setting</span>
-          </a>
-        </li>
-        <li class="log_out">
+
+       <li>
           <a href="#">
             <i class="bx bx-log-out"></i>
             <span class="links_name">Log out</span>

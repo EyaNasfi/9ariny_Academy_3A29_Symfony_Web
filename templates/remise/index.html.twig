@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+            <!DOCTYPE html>
 <!-- Website - www.codingnepalweb.com -->
 <html lang="en" dir="ltr">
   <head>
@@ -465,59 +466,63 @@ nav .profile-details i{
       </div>
          <ul class="nav-links">
        <li>
-          <a href="#">
+          <a href="{{path('app_backhome')}}">
             <i class="fa fa-home"></i>
             <span class="links_name">Dashboard admin</span>
           </a>
         </li>
         <li>
+         <a href="{{ path('app_afficherreclamation')}}" >
  <i class="fa-solid fa-school-circle-exclamation"></i>            
  <span class="links_name">Reclamations</span>
           </a>
         </li>
         <li>
-           <i class="fa-solid fa-file-circle-question"></i>
+       <a href="{{ path('app_quiz')}}" >
+           <i class="fa-solid fa-file-circle-question" ></i>
             <span class="links_name">Quiz</span>
           </a>
         </li>
               <li>
+          <a href="{{path('app_event')}}" >
            <i class="fa-solid fa-calendar-check"></i>        
             <span class="links_name">Evenements</span>
           </a>
         </li>
         <li>
+                    <a href="{{path('app_club')}}"  >
            <i class="fa-solid fa-puzzle-piece"></i>        
             <span class="links_name">Clubs</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="{{path('AddCourFormation')}}" >
             <i class="fa-solid fa-book-open-reader"></i>
             <span class="links_name">Cours</span>
           </a>
         </li>
          <li>
-          <a href="#">
+          <a href="{{path('AddFormation')}}" >
 <i class="fa-solid fa-list"></i>
             <span class="links_name">Formations</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="{{path('app_salle_new')}}">
 <i class="fa-solid fa-landmark"></i>
             <span class="links_name" >Salles</span>
           </a>
          
         </li>
         <li>
-          <a href="#">
+          <a href="{{path('app_equipement_new')}}">
 <i class="fa-solid fa-wrench"></i>
             <span class="links_name" >Equipements</span>
           </a>
          
         </li>
          <li>
-          <a href="#">
+          <a href="{{ path('remise_new') }}" class="active">
 <i class="fas fa-shopping-cart"></i>
             <span class="links_name">Paiements</span>
           </a>
@@ -528,7 +533,7 @@ nav .profile-details i{
             <span class="links_name">Account</span>
           </a>
         </li>
-       <li>
+     <li>
           <a href="#">
             <i class="bx bx-log-out"></i>
             <span class="links_name">Log out</span>
@@ -559,19 +564,62 @@ nav .profile-details i{
         </div>
       </nav>
 
-      
-        <div class="sales-boxes">
-          <div class="recent-sales box">
-           <div style="padding-left: 20%;">
-        <div style="padding-top: 10%;">
-       <div style="padding-left: 20%;">
-        <div style="padding-top: 10%;">
-            <h1>Remise index</h1>
+      <div class="home-content">
+        <div class="overview-boxes">
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Order</div>
+              <div class="number">40,876</div>
+              <div class="indicator">
+                <i class="bx bx-up-arrow-alt"></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class="bx bx-cart-alt cart"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Sales</div>
+              <div class="number">38,876</div>
+              <div class="indicator">
+                <i class="bx bx-up-arrow-alt"></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class="bx bxs-cart-add cart two"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Profit</div>
+              <div class="number">$12,876</div>
+              <div class="indicator">
+                <i class="bx bx-up-arrow-alt"></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class="bx bx-cart cart three"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Return</div>
+              <div class="number">11,086</div>
+              <div class="indicator">
+                <i class="bx bx-down-arrow-alt down"></i>
+                <span class="text">Down From Today</span>
+              </div>
+            </div>
+            <i class="bx bxs-cart-download cart four"></i>
+          </div>
+        </div>
 
-            <table class="table" border=1>
+             <div class="sales-boxes">
+        <div class="recent-sales box">
+    <div class="title">Les listes des Remises</div>
+    <div class="sales-details">
+        <ul class="details">
+             <table class="table" border=1>
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Montant</th>
                         <th>Pourcentage</th>
                         <th>Montantaprespourcentage</th>
@@ -581,13 +629,12 @@ nav .profile-details i{
                 <tbody>
                     {% for remise in remises %}
                         <tr>
-                            <td>{{ remise.id }}</td>
                             <td>{{ remise.montant }}</td>
                             <td>{{ remise.pourcentage }}</td>
                             <td>{{ remise.montantaprespourcentage }}</td>
                             <td>
-                                <a href="{{ path('app_remise_show', {'id': remise.id}) }}">Show</a>
-                                <a href="{{ path('app_remise_edit', {'id': remise.id}) }}">Edit</a>
+                                <a href="{{ path('app_remise_show', {'id': remise.id}) }}"><i class="fas fa-show"></i>Show</a>
+                                <a href="{{ path('app_remise_edit', {'id': remise.id}) }}"><i class="fas fa-edit"></i>Edit</a>
                             </td>
                         </tr>
                     {% else %}
@@ -597,15 +644,11 @@ nav .profile-details i{
                     {% endfor %}
                 </tbody>
             </table>
-
-            <a href="{{ path('app_remise_new') }}">Create new</a>
-        </div>
-    </div>
-
+            </ul>
 
 </div>
-                
-           </div>
+        </div>
+  
     </section>
 
     <script>

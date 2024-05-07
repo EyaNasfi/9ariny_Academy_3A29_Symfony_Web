@@ -73,7 +73,6 @@ class QuestionsController extends AbstractController
     #[Route('/afficherquest/{idquiz}', name: 'app_afficherquestions')]
     public function affiche(QuestionsRepository $rep,QuizRepository $rr,$idquiz,PaginatorInterface $paginator, Request $request){
         $r = $rep->findAll();
-
         return $this->render('/questions/affiche.html.twig', [
             'questions'=>$r,'quizs'=>$rr->findAll(),'idquiz'=>$idquiz,
         ]);
@@ -107,11 +106,45 @@ public function modifier(Request $req,$id, QuestionsRepository $rep){
 
 }
 #[Route('/afficherquestback', name: 'app_afficherbackquestions')]
-public function afficheback(QuestionsRepository $rep,PaginatorInterface $paginator, Request $request){
-    $r = $rep->findAll();
+public function afficheback(ReclamationRepository $rep, ReponseRepository $re, QuestionsRepository $qq, QuizRepository $qr){
+    $r = $qq->findAll();
+    $totalQuest = $qq->createQueryBuilder('q')
+    ->select('COUNT(q.idquest)')
+    ->getQuery()
+    ->getSingleScalarResult();
 
+$totalQuizzes = $qr->createQueryBuilder('q')
+    ->select('COUNT(q.idquiz)')
+    ->getQuery()
+    ->getSingleScalarResult();
+
+$totalrec = $rep->createQueryBuilder('q')
+    ->select('COUNT(q.idrec)')
+    ->getQuery()
+    ->getSingleScalarResult();
+
+$totalrep = $re->createQueryBuilder('q')
+    ->select('COUNT(q.idrep)')
+    ->getQuery()
+    ->getSingleScalarResult();
+
+$pourcentageReponses = 0;
+if ($totalrec > 0) {
+    $pourcentageReponses = ($totalrep / $totalrec) * 100;
+}
+
+$pourcentagequest = 0;
+if ($totalQuest > 0) {
+    $pourcentagequest = ($totalQuizzes / $totalQuest) * 100;
+}
     return $this->render('/questions/back/afficheback.html.twig', [
-        'questions'=>$r,'quizs'=>$rep->findAll()
+        'questions'=>$r,'quizs'=>$qr->findAll(),
+        'totalQuizzes' => $totalQuizzes,
+        'totalrep' => $totalrep,
+        'totalrec' => $totalrec,
+        'pourcentageReponses' => $pourcentageReponses,
+        'totalquest' => $totalQuest,
+        'pourcentagequest' => $pourcentagequest,
     ]);
 }
 }

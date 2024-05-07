@@ -1,9 +1,9 @@
+<!DOCTYPE html>
 <!-- Website - www.codingnepalweb.com -->
-<html lang="en" >
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-   {% block title %} <title>Responsiive Admin Dashboard | 9ariny-Academy</title>{% endblock %}
-
+    <title>Responsiive Admin Dashboard | 9ariny-Academy</title>
     <script src="https://kit.fontawesome.com/7e57645445.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
@@ -11,49 +11,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css" />
-        <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-     {% block css %}
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-    {% endblock %}
     <style>
     /* Googlefont Poppins CDN Link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
@@ -403,7 +360,7 @@ nav .profile-details i{
   color: #333;
 }
 /* Responsive Media Query */
-@media (max-width: 1240px ) {
+@media (max-width: 1240px) {
   .sidebar{
     width: 60px;
   }
@@ -435,7 +392,7 @@ nav .profile-details i{
   .home-content .sales-boxes .box{
     width: 100%;
     overflow-x: scroll;
-    margin-bottom: 100px;
+    margin-bottom: 30px;
   }
   .home-content .sales-boxes .top-sales{
     margin: 0;
@@ -458,7 +415,7 @@ nav .profile-details i{
     min-width: 40px;
   }
   .home-content .sales-boxes .sales-details{
-    width: 2000px;
+    width: 560px;
   }
 }
 @media (max-width: 550px) {
@@ -499,76 +456,80 @@ nav .profile-details i{
     <!-- Boxicons CDN Link -->
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   </head>
-  {% block body %}
   <body>
- <div class="sidebar">
+    <div class="sidebar">
       <div class="logo-details">
-      <img  src="/9A.png" >
+     <img src="/log.png" ></img>
+
       </div>
          <ul class="nav-links">
+       <li>
+          <a href="{{path('app_backhome')}}">
+            <i class="fa fa-home"></i>
+            <span class="links_name">Dashboard admin</span>
+          </a>
+        </li>
         <li>
-         <a href="{{ path('app_afficherreclamation')}}" >
+         <a href="{{ path('app_afficherreclamation')}}"  >
  <i class="fa-solid fa-school-circle-exclamation"></i>            
  <span class="links_name">Reclamations</span>
           </a>
         </li>
         <li>
-       <a href="{{ path('app_quiz')}}"  class="active">
+       <a href="{{ path('app_quiz')}}" class="active">
            <i class="fa-solid fa-file-circle-question"></i>
             <span class="links_name">Quiz</span>
           </a>
         </li>
-        <li>
-          <a href="#">
+              <li>
+          <a href="{{path('app_event')}}" >
            <i class="fa-solid fa-calendar-check"></i>        
             <span class="links_name">Evenements</span>
           </a>
         </li>
         <li>
-          <a href="#">
+                    <a href="{{path('app_club')}}">
            <i class="fa-solid fa-puzzle-piece"></i>        
             <span class="links_name">Clubs</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="{{path('AddCourFormation')}}">
             <i class="fa-solid fa-book-open-reader"></i>
             <span class="links_name">Cours</span>
           </a>
         </li>
          <li>
-          <a href="#"><i class="fa-solid fa-list"></i>
+          <a href="{{path('AddFormation')}}" >
+<i class="fa-solid fa-list"></i>
             <span class="links_name">Formations</span>
           </a>
         </li>
         <li>
-          <a href="#"><i class="fa-solid fa-landmark"></i>
+          <a href="{{path('app_salle_new')}}">
+<i class="fa-solid fa-landmark"></i>
             <span class="links_name" >Salles</span>
           </a>
          
         </li>
         <li>
-          <a href="#"><i class="fa-solid fa-wrench"></i>
+          <a href="{{path('app_equipement_new')}}">
+<i class="fa-solid fa-wrench"></i>
             <span class="links_name" >Equipements</span>
           </a>
          
         </li>
          <li>
-          <a href="#"><i class="fas fa-shopping-cart"></i>
+          <a href="{{ path('remise_new') }}">
+<i class="fas fa-shopping-cart"></i>
             <span class="links_name">Paiements</span>
           </a>
         </li>
          <li>
-          <a href="#"><i class="fa-solid fa-user"></i>
-            <span class="links_name">Account</span>
-          </a>
-        </li>
-        <li>
           <a href="#">
-            <i class="bx bx-map"></i>
-            <span class="links_name">Map</span>
+<i class="fa-solid fa-user"></i>
+            <span class="links_name">Account</span>
           </a>
         </li>
        <li>
@@ -604,57 +565,59 @@ nav .profile-details i{
 
       <div class="home-content">
         <div class="overview-boxes">
-          <div class="box">
+         <div class="box">
             <div class="right-side">
-              <div class="box-topic">Total Order</div>
-              <div class="number">40,876</div>
+              <div class="box-topic">Reponses</div>
+              <div class="number">{{ pourcentageReponses | round }}%</div>
+              <div class="box-topic">{{ totalrep}} sur {{totalrec}}</div>
+              <div  class="text">ont été répondues.</div>
               <div class="indicator">
                 <i class="bx bx-up-arrow-alt"></i>
-                <span class="text">Up from yesterday</span>
-              </div>
-            </div>
-            <i class="bx bx-cart-alt cart"></i>
-          </div>
-          <div class="box">
-            <div class="right-side">
-              <div class="box-topic">Total Sales</div>
-              <div class="number">38,876</div>
-              <div class="indicator">
-                <i class="bx bx-up-arrow-alt"></i>
-                <span class="text">Up from yesterday</span>
+                <span class="text">Mise a jour aujourd'hui</span>
               </div>
             </div>
             <i class="bx bxs-cart-add cart two"></i>
           </div>
           <div class="box">
+    <div class="right-side">
+        <div class="box-topic">Totales Quiz</div>
+        <div class="number">{{totalQuizzes}}</div>
+        <div class="indicator">
+                <i class="bx bx-up-arrow-alt"></i>
+                <span class="text">Mise a jour aujourd'hui</span>
+              </div>        </div>
+            <i class="bx bx-cart-alt cart"></i>
+          </div>
+         
+          <div class="box">
             <div class="right-side">
-              <div class="box-topic">Total Profit</div>
-              <div class="number">$12,876</div>
+              <div class="box-topic">Totales questions </div>
+              <div class="number">{{totalquest}}  </div>
               <div class="indicator">
                 <i class="bx bx-up-arrow-alt"></i>
-                <span class="text">Up from yesterday</span>
+                <span class="text">Mise a jour aujourd'hui</span>
               </div>
             </div>
             <i class="bx bx-cart cart three"></i>
           </div>
           <div class="box">
             <div class="right-side">
-              <div class="box-topic">Total Return</div>
-              <div class="number">11,086</div>
+              <div class="box-topic">Pourcentage des questions dans quizs</div>
+              <div class="number">{{pourcentagequest| round}}%</div>
               <div class="indicator">
                 <i class="bx bx-down-arrow-alt down"></i>
-                <span class="text">Down From Today</span>
+                <span class="text">Mise a jour aujourd'hui</span>
               </div>
             </div>
             <i class="bx bxs-cart-download cart four"></i>
           </div>
         </div>
-
         <div class="sales-boxes">
           <div class="recent-sales box">
            <a>
            {{ form (form,{'attr': {'novalidate': 'novalidate'}} ) }}  </a>
 <a class="btn btn-primary rounded-pill py-3 px-5" href="{{ path('app_afficherquiz')}}">Liste des quizs</a>
+           <a class="btn btn-primary rounded-pill py-3 px-5" href="{{ path('app_afficherbackquestions')}}">Liste des questions</a>
 
 </div>
                 
@@ -671,6 +634,5 @@ nav .profile-details i{
         } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
       };
     </script>
-    {% endblock %}
   </body>
 </html>

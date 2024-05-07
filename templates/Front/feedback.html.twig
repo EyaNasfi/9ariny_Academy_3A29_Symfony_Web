@@ -1,0 +1,27 @@
+<!-- Front/feedback.html.twig -->
+
+
+
+{% block title %}Feedback List{% endblock %}
+
+{% block body %}
+    <h1>Feedback List</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Opinion</th>
+            <th>Teaching Methods</th>
+            <th>Research Evaluation</th>
+        </tr>
+        {% for feedback in feedback %}
+            <tr>
+                <td>{{ feedback.nom }}</td>
+                <td>{{ feedback.email }}</td>
+                <td>{{ feedback.opinion }}</td>
+                <td>{{ feedback.methodesEnseignement }}</td>
+                <td>{{ feedback.evaluationRecherche }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% for formation in formations %}
+    <div>
+        <h3>{{ formation.getnomDeFormation() }}</h3>
+        <p>{{ formation.getDescription() }}</p>
+        <p>Note: {{ formation.getNote() }}</p>
+        <form action="{{ path('rate_formation') }}" method="post">
+            <input type="hidden" name="formation_id" value="{{ formation.getIidDeFormation() }}">
+            <label for="rating">Note (1-5)</label>
+            <input type="number" name="rating" id="rating" min="1" max="5" required>
+            <button type="submit">Noter</button>
+        </form>
+    </div>
+{% endfor %}

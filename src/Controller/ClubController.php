@@ -18,7 +18,7 @@ class ClubController extends AbstractController
 
     public function ajouter(Request $req,EntityManagerInterface $em ,UserRepository $userRepository ): Response
     {
-        $user=$userRepository->findOneBy(['id' => 4]);    
+        $user=$userRepository->findOneBy(['iduser' => 4]);    
     $club = new Club();
     $club->setIdUser($user);
     $form = $this->createForm(ClubType::class,$club); //n3ml formulaire  b reclamationtyoe eli fiha champs ta3 entity

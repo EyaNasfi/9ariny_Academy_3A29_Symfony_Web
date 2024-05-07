@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Controller;
+use Dompdf\Dompdf;
 use Dompdf\Options;
 use Knp\Snappy\Pdf;
-
-use Dompdf\Dompdf;
 use App\Entity\Quiz;
 use App\Entity\User;
 use App\Form\UserType;
@@ -17,10 +16,18 @@ use App\Repository\ReclamationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+    private $session;
+
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
+
     #[Route('/home', name: 'app_home')]
     public function home(ReponseRepository $rep,ReclamationRepository $r): Response
     {
@@ -28,7 +35,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController','Reponses'=>$rep->findAll(),'Reclamations'=>$r->findAll()
         ]);
     }
-    #[Route('/certif', name: 'app_certif')]
+        #[Route('/certif', name: 'app_certif')]
     public function certif(QuizRepository $rep,Request $request): Response
     {
         $q = $rep->findAll();
@@ -73,6 +80,12 @@ public function certifPdf(QuizRepository $rep, Request $request): Response
         ]);
         
     }
+    #[Route('/backhome', name: 'app_backhome')]
+    public function backhome(): Response
+    {
+        return $this->render('backhome.html.twig', [
+        ]);
+    }
     #[Route('/map', name: 'app_map')]
     public function map(): Response
     {
@@ -101,22 +114,5 @@ public function certifPdf(QuizRepository $rep, Request $request): Response
             'controller_name' => 'aboutController',
         ]);
     }
-    #[Route('/inscription', name: 'app_inscription')]
-    public function inscription(Request $req,EntityManagerInterface $em ,UserRepository $userRepository ): Response
-    {
-            $u = new User();
-            $u->setRole("Etudiant");
-        $form = $this->createForm(InscriptionType::class,$u); //n3ml formulaire  b reclamationtyoe eli fiha champs ta3 entity
-        $form->handleRequest($req); //traitement de requete  , 
-        
-            if ($form->isSubmitted() && $form->isValid()) { //kn form valide 
-                $em = $this->getDoctrine()->getManager(); //nakhedh entity manager eli ta3ml persist l'entite f bd
-                $em->persist($u); //T3awedh persist l'entité Reclamation fil entity manager.
-                $em->flush(); //na3ml refresh f bd
-                return $this->redirectToRoute('app_home');
-            }
-        
-            return $this->render('register.html.twig', [
-                'form' => $form->createView()        ]);
-        }
+   
 }

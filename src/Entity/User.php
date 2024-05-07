@@ -2,100 +2,97 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * User
- *
- * @ORM\Table(name="user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="`user`")
  */
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface 
-{   
-    public function getUsername(): string
-    {
-        return $this->email;
-    }
-
-    public function getRoles(): array
-    {
-        return [$this->role];
-    }
-
-    public function getPassword(): string
-    {
-        return $this->mdp;
-    }
-
-    public function getSalt(): ?string
-    {
-        // Vous n'avez pas besoin de sel pour encoder le mot de passe
-        // car vous utilisez un encoder Symfony qui gère cela automatiquement
-        return null;
-    }
-
-    public function eraseCredentials()
-    {
-        // Méthode vide car vous ne stockez pas de données sensibles supplémentaires
-        // dans votre entité utilisateur
-    }
+class User implements UserInterface, PasswordAuthenticatedUserInterface
+{
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(name="iduser", type="integer", nullable=false)
+     * @Groups({"user:read"})
      */
-    private $id;
+    private $iduser;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Groups({"user:read"})
      */
     private $nom;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Groups({"user:read"})
      */
     private $prenom;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @ORM\Column(name="mail", type="string", length=255, nullable=false)
+     * @Assert\Email
+     * @Groups({"user:read"})
      */
     private $email;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
+     * @Groups({"user:read"})
      */
-    private $adresse;
+    private $address;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="mdp", type="string", length=255, nullable=false)
      */
-    private $mdp;
+    private $password;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="role", type="string", length=255, nullable=false)
+     * @Groups({"user:read"})
      */
     private $role;
 
-    public function getId(): ?int
+    /**
+     * @ORM\Column(name="status", type="string", length=255, nullable=false)
+     * @Groups({"user:read"})
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     * @Groups({"user:read"})
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(name="reset_code", type="string", length=255, nullable=false)
+     */
+    private $resetCode;
+
+    private $confirmPassword;
+
+    public function getIduser(): ?int
     {
-        return $this->id;
+        return $this->iduser;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
+    }
+    public function setIduser(?int $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
     }
 
     public function getNom(): ?string
@@ -103,7 +100,7 @@ class User implements UserInterface
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(string $nom): self
     {
         $this->nom = $nom;
 
@@ -115,11 +112,31 @@ class User implements UserInterface
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): static
+    public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
 
         return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setMail(string $mail): self
+    {
+        $this->email = $mail;
+
+        return $this;
+    }
+
+
+
+   
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getEmail(): ?string
@@ -134,41 +151,158 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAdresse(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+ 
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+
+
+    /**
+     * @see UserInterface
+     */
+
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): ?string
     {
-        return $this->adresse;
+        return $this->password;
     }
 
-    public function setAdresse(string $adresse): static
+    public function setPassword(?string $password): static
     {
-        $this->adresse = $adresse;
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getMdp(): ?string
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+  
+
+    /**
+     * @see UserInterface
+     */
+ 
+
+    /**
+     * @return string|null
+     */
+   
+
+    /**
+     * @param string|null $nom
+     */
+ 
+
+    /**
+     * @return string|null
+     */
+
+
+    /**
+     * @param string|null $prenom
+     */
+   
+
+    public function getAddress(): ?string
     {
-        return $this->mdp;
+        return $this->address;
     }
 
-    public function setMdp(string $mdp): static
+    public function setAddress(string $address): static
     {
-        $this->mdp = $mdp;
+        $this->address = $address;
 
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getStatus(): ?string
     {
-        return $this->role;
+        return $this->status;
     }
-
-    public function setRole(string $role): static
+    public function getImage(): ?string
     {
-        $this->role = $role;
+        return $this->image;
+    }
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }
 
 
+
+    public function getResetCode(): ?string
+    {
+        return $this->resetCode;
+    }
+
+    public function setResetCode(string $resetCode): self
+    {
+        $this->resetCode = $resetCode;
+
+        return $this;
+    }
+
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirmPassword;
+    }
+
+    public function setConfirmPassword(?string $confirmPassword): self
+    {
+        $this->confirmPassword = $confirmPassword;
+
+        return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = [$this->role];
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->role = $roles;
+
+        return $this;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 }

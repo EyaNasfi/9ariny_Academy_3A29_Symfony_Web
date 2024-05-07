@@ -2,80 +2,124 @@
 
 namespace App\Entity;
 
-use App\Repository\PaymentRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PaymentRepository::class)]
+/**
+ * Payment
+ *
+ * @ORM\Table(name="payment", indexes={@ORM\Index(name="idformation", columns={"idformation"})})
+ * @ORM\Entity
+ */
 class Payment
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    #[ORM\Column]
-    private ?float $montant = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="montant", type="integer", nullable=false)
+     */
+    private $montant;
 
-    #[ORM\Column(length: 255)]
-    private ?string $moyendepaiement = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="moyendepaiement", type="string", length=255, nullable=false)
+     */
+    private $moyendepaiement;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="date", type="datetime", nullable=true)
+     */
+    private $date;
 
+    /**
+     * @var \Formation
+     *
+     * @ORM\ManyToOne(targetEntity="Formation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idformation", referencedColumnName="ID_de_Formation")
+     * })
+     */
+    private $idformation;
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getMontant(): ?float
+    // Getter and setter for montant
+    public function getMontant(): int
     {
         return $this->montant;
     }
 
-    public function setMontant(float $montant): static
+    public function setMontant(int $montant): self
     {
         $this->montant = $montant;
-
         return $this;
     }
 
-    public function getMoyendepaiement(): ?string
+    // Getter and setter for moyendepaiement
+    public function getMoyendepaiement(): string
     {
         return $this->moyendepaiement;
     }
 
-    public function setMoyendepaiement(string $moyendepaiement): static
+    public function setMoyendepaiement(string $moyendepaiement): self
     {
         $this->moyendepaiement = $moyendepaiement;
-
         return $this;
     }
 
-    public function getEmail(): ?string
+    // Getter and setter for email
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
+    // Getter and setter for date
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDate(?\DateTimeInterface $date): self
     {
         $this->date = $date;
+        return $this;
+    }
 
+    // Getter and setter for idformation
+    public function getIdformation(): ?\Formation
+    {
+        return $this->idformation;
+    }
+
+    public function setIdformation(?\Formation $idformation): self
+    {
+        $this->idformation = $idformation;
         return $this;
     }
 }

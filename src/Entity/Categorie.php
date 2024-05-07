@@ -16,34 +16,41 @@ class Categorie
      * @var int
      *
      * @ORM\Column(name="idCategorie", type="integer", nullable=false)
-     * @ORM\Id
+   
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idcategorie;
+    private $idCategorie;
 
     /**
      * @var string
-     *
+     *   @ORM\Id
      * @ORM\Column(name="nomCategorie", type="string", length=255, nullable=false)
      */
-    private $nomcategorie;
-
-    public function getIdcategorie(): ?int
+    private $nomCategorie;
+    public function getIdCategorie(): ?int
     {
-        return $this->idcategorie;
+        return $this->idCategorie;
     }
 
-    public function getNomcategorie(): ?string
+    public function setIdcategorie(int $idCategorie): static
     {
-        return $this->nomcategorie;
-    }
-
-    public function setNomcategorie(string $nomcategorie): static
-    {
-        $this->nomcategorie = $nomcategorie;
+        $this->idCategorie = $idCategorie;
 
         return $this;
     }
+
+    public function getnomCategorie(): ?string
+    {
+        return $this->nomCategorie;
+    }
+
+    public function setnomCategorie(string $nomcategorie): static
+    {
+        $this->nomCategorie = $nomcategorie;
+
+        return $this;
+    }
+
 
 
 }

@@ -465,59 +465,63 @@ nav .profile-details i{
       </div>
          <ul class="nav-links">
        <li>
-          <a href="#">
+          <a href="{{path('app_backhome')}}">
             <i class="fa fa-home"></i>
             <span class="links_name">Dashboard admin</span>
           </a>
         </li>
         <li>
+         <a href="{{ path('app_afficherreclamation')}}" >
  <i class="fa-solid fa-school-circle-exclamation"></i>            
  <span class="links_name">Reclamations</span>
           </a>
         </li>
         <li>
-           <i class="fa-solid fa-file-circle-question"></i>
+       <a href="{{ path('app_quiz')}}" >
+           <i class="fa-solid fa-file-circle-question" ></i>
             <span class="links_name">Quiz</span>
           </a>
         </li>
               <li>
+          <a href="{{path('app_event')}}"  >
            <i class="fa-solid fa-calendar-check"></i>        
             <span class="links_name">Evenements</span>
           </a>
         </li>
         <li>
+                    <a href="{{path('app_club')}}"  >
            <i class="fa-solid fa-puzzle-piece"></i>        
             <span class="links_name">Clubs</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="{{path('AddCourFormation')}}">
             <i class="fa-solid fa-book-open-reader"></i>
             <span class="links_name">Cours</span>
           </a>
         </li>
          <li>
-          <a href="#">
+          <a href="{{path('AddFormation')}}" >
 <i class="fa-solid fa-list"></i>
             <span class="links_name">Formations</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="{{path('app_salle_new')}}">
 <i class="fa-solid fa-landmark"></i>
             <span class="links_name" >Salles</span>
           </a>
          
         </li>
         <li>
-          <a href="#">
+          <a href="{{path('app_equipement_new')}}">
 <i class="fa-solid fa-wrench"></i>
             <span class="links_name" >Equipements</span>
           </a>
          
         </li>
          <li>
-          <a href="#">
+          <a href="{{ path('remise_new') }}" class="active">
 <i class="fas fa-shopping-cart"></i>
             <span class="links_name">Paiements</span>
           </a>
@@ -559,23 +563,60 @@ nav .profile-details i{
         </div>
       </nav>
 
-      
-            
+      <div class="home-content">
+        <div class="overview-boxes">
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Order</div>
+              <div class="number">40,876</div>
+              <div class="indicator">
+                <i class="bx bx-up-arrow-alt"></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class="bx bx-cart-alt cart"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Sales</div>
+              <div class="number">38,876</div>
+              <div class="indicator">
+                <i class="bx bx-up-arrow-alt"></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class="bx bxs-cart-add cart two"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Profit</div>
+              <div class="number">$12,876</div>
+              <div class="indicator">
+                <i class="bx bx-up-arrow-alt"></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class="bx bx-cart cart three"></i>
+          </div>
+          <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Return</div>
+              <div class="number">11,086</div>
+              <div class="indicator">
+                <i class="bx bx-down-arrow-alt down"></i>
+                <span class="text">Down From Today</span>
+              </div>
+            </div>
+            <i class="bx bxs-cart-download cart four"></i>
+          </div>
+        </div>
+
         <div class="sales-boxes">
           <div class="recent-sales box">
-           <div style="padding-left: 20%;">
-        <div style="padding-top: 10%;">
-       <div style="padding-left: 20%;">
-        <div style="padding-top: 10%;">
-          
+           <a>
+           {{ form (form,{'attr': {'novalidate': 'novalidate'}} ) }}  </a>
+<a class="btn btn-primary rounded-pill py-3 px-5" href="{{ path('app_remise_index') }}">Liste des Remises</a>
 
-<h1>Edit Remise</h1>
-
-    {{ include('remise/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_remise_index') }}">back to list</a>
-
-    {{ include('remise/_delete_form.html.twig') }}
 </div>
                 
            </div>

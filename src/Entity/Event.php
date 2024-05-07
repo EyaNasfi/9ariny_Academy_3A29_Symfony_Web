@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Event
  *
- * @ORM\Table(name="event", indexes={@ORM\Index(name="idclub", columns={"idclub"}), @ORM\Index(name="iduser", columns={"iduser"})})
+ * @ORM\Table(name="event", indexes={@ORM\Index(name="iduser", columns={"iduser"}), @ORM\Index(name="idclub", columns={"idclub"})})
  * @ORM\Entity
  */
 class Event
@@ -16,7 +15,7 @@ class Event
     /**
      * @var int
      *
-     * @ORM\Column(name="	id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -25,7 +24,7 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="	name", type="string", length=255, nullable=false)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
@@ -55,7 +54,7 @@ class Event
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="iduser", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="iduser", referencedColumnName="iduser")
      * })
      */
     private $iduser;
@@ -146,6 +145,9 @@ class Event
 
         return $this;
     }
-
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 
 }

@@ -44,7 +44,7 @@ class Reclamation
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="iduser", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="iduser", referencedColumnName="iduser")
      * })
      */
     private $iduser;
