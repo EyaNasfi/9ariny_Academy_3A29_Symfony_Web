@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <!-- Other head elements -->
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script></head>
+<body>
+    <p>QR Code Generator</p>
+    <div id="qrcode"></div>
+    <script>
+        var calendarUrl = 'https://calendar.google.com/calendar/render?pli=1#main_7|20240501'; // Replace with your calendar URL
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: calendarUrl,
+            width: 200,
+            height: 200
+        });
+    </script>
+</body>
+</html>

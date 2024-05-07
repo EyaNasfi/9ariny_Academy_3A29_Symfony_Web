@@ -4,3 +4,10 @@
 home:
     path: /
     controller: App\Controller\HomeController::home
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout

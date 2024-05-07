@@ -29,8 +29,9 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false, unique=true)
-     * @Assert\NotBlank( message="Entrez le nbr de questions svp")
+     * @Assert\NotBlank( message="Entrez le nom svp")
      */
+
     private $nom;
 
     /**
@@ -38,7 +39,7 @@ class Quiz
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="iduser", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="iduser", referencedColumnName="iduser")
      * })
      */
     private $iduser;

@@ -1,0 +1,40 @@
+{% extends 'base-front.html.twig' %}
+{% block body %}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h6 class="section-title bg-white text-primary px-3">Changer</h6>
+        <h1 class="mb-4">mot de passe</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+              <div class="sign__group">
+              {% for message in app.flashes('error') %}
+                <h1 class="footer__tagline">
+                  {{ message }}
+                </h1>
+              {% endfor %}
+              </div>
+
+              <div class="sign__group">
+                {{ form_widget(form.Password,  {'attr': { placeholder:'mot de passe' }}) }}
+                <h5 class="footer__tagline">
+                  {{ form_errors(form.Password) }}
+                </h5>
+
+              </div>
+              <div class="sign__group">
+                {{ form_widget(form.ConfirmPassword,  {'attr': { placeholder:'confirmer mot de passe' }}) }}
+                  <h5 class="footer__tagline">
+                      {{ form_errors(form.ConfirmPassword) }}
+                  </h5>
+              </div>
+
+            <button class="btn btn-lg btn-primary">{{ button_label|default('Réinitialiser le mot de passe') }}</button>
+        {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

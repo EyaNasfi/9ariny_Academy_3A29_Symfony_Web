@@ -1,0 +1,20 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="form-group">
+        {{ form_label(form.montant, 'Montant') }}
+        <div class="col-sm-10">
+        {{ form_widget(form.montant, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le montant du plat'}}) }}
+         {{ form_errors(form.montant, { 'attr': { 'class': 'text-danger error-message' } }) }}
+    </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.pourcentage, 'Pourcentage') }}
+        {{ form_widget(form.pourcentage, {'attr': {'class': 'form-control'}}) }}
+        { {{ form_errors(form.pourcentage, { 'attr': { 'class': 'text-danger error-message' } }) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.montantaprespourcentage, 'Montant après pourcentage') }}
+        {{ form_widget(form.montantaprespourcentage, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.montantaprespourcentage) }}
+    </div>
+    <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -1,88 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
 
+        .container {
+            border: 20px solid tan;
+            width: 800px;
+            height: 600px;
+            margin: auto;
+            padding: 20px;
+        }
 
-<html>
-    <head>
-        <style type='text/css'>
-            body, html {
-                margin: 0;
-                padding: 0;
-            }
-            body {
-                color: black;
-                display: table;
-                font-family: Georgia, serif;
-                font-size: 24px;
-                text-align: center;
-            }
-            .container {
-                border: 20px solid tan;
-                width: 800px;
-                height: 600px;
-                display: table-cell;
-                vertical-align: middle;
-            }
-            .logo {
-                color: tan;
-            }
+        .logo {
+            color: tan;
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-            .marquee {
-                color: tan;
-                font-size: 48px;
-                margin: 20px;
-            }
-            .assignment {
-                margin: 20px;
-            }
-            .person {
-                border-bottom: 2px solid black;
-                font-size: 32px;
-                font-style: italic;
-                margin: 20px auto;
-                width: 600px;
-            }
-            .reason {
-                margin: 20px;
-            }
-        </style>
-    </head>
-    <body>
-<form method="get" action="file.doc">
-   <button type="submit">Download!</button>
-</form>
-<script>
-$("#fileRequest").click(function(){ /* code to download? */ });
+        .marquee {
+            color: tan;
+            font-size: 48px;
+            margin: 20px;
+        }
 
-</script
-        <div class="container">
-            <div class="logo">
-        <img src="/9A.png" alt="logo" position="right" ></img>
-            9ariny-Academy            
-            </div>
+        .assignment {
+            margin: 20px;
+            font-size: 24px;
+        }
 
-            <div class="marquee">
-     {% if quizs is not empty %}
+        .person {
+            font-size: 32px;
+            font-style: italic;
+            margin: 20px auto;
+            width: 600px;
+        }
 
-            Certificat d'achèvement de {{quizs[0].nom}}
-                {% endif %}
+        .reason {
+            margin: 20px;
+            font-size: 20px;
+        }
 
-            </div>
+        img {
+            vertical-align: middle;
+            margin-right: 10px;
+        }
 
-            <div class="assignment">
-                La certificat presente pour
-            </div>
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            background-color: tan;
+            color: white;
+            cursor: pointer;
+        }
 
-            <div class="person">
-            {% if quizs is not empty %}
-        <br> {{ quizs[0].iduser.nom }} {{ quizs[0].iduser.prenom }} <br/>
-    {% endif %}
-                </div>
-
-            <div class="reason">
-              <br> Pour avoir habilement défié les lois de la gravité
-et voler haut</br>
-        <img src="/signatureeya.jpg" alt="logo" ></img>
-
+        /* Style pour le QR code */
+        .qrcode {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenu de votre certificat -->
+<div class="container">
+    <div class="logo">
+        <div style="display: inline-block;">
+            <img src="/9A.png" alt="logo">9ariny-Academy
+        </div>
+        <div style="display: inline-block; horizontal-align: top;">
+            <div class="qrcode">
+                <!-- Lien vers une API fictive de génération de QR code (à remplacer par une vraie API) -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?data=nomquiz{{ quizs[0].nom }}nomuser{{ quizs[0].iduser.nom }}{{ quizs[0].iduser.prenom }}score{{ score }}&size=50x50" alt="QR code">
             </div>
         </div>
-    </body>
+    </div>
+        
+        <div class="marquee">
+            {% if quizs is not empty %}
+                Certificat d'achèvement de {{ quizs[0].nom }}
+            {% endif %}
+        </div>
+        <div class="assignment">
+            La certificat presente pour
+        </div>
+        <div class="person">
+            {% if quizs is not empty %}
+                <br>{{ usern.nom}} {{usern.prenom }}
+            {% endif %}
+        </div>
+        <div class="reason">
+            <br>Pour avoir habilement défié les lois de la gravité
+            et voler haut</div>
+        <div class="reason">
+            <br>Avec un score final de : {{ score }}%</div>
+        <div class="reason">
+            <br> Nasfi Eya</div>
+        <div style="text-align: right;">
+            <script>
+                var today = new Date();
+                var formattedDate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+                document.write(formattedDate);
+            </script>
+        </div>
+        <div style="text-align: center;">
+            <img src="/signatureeya.jpg" alt="signature">
+        </div>
+     
+    </div>
+
+    <!-- QR code -->
+   
+
+    <!-- Bouton pour partager sur LinkedIn -->
+    <a href="https://www.linkedin.com/shareArticle?url=https://www.linkedin.com/feed/&title=Certificat%20d'ach%C3%A8vement%20de%20{{ quizs[0].nom }}%20pour%20{{usern.nom }}%20{{usern.prenom }}%20pour%20Pour%20avoir%20habilement%20d%C3%A9fi%C3%A9%20les%20lois%20de%20la%20gravit%C3%A9%20et%20voler%20haut" target="_blank">
+        <button><i class="fab fa-linkedin"></i></button>
+    </a>
+
+    <!-- Script pour générer le QR code -->
+    <script>
+        const form = new FormData();
+        form.append('image', '');
+        form.append('metadata', '{"data":"https://linqr.app","image":{"modules":true},"style":{"module":{"color":"black","shape":"default"},"inner_eye":{"shape":"default"},"outer_eye":{"shape":"default"},"background":{}},"size":{"width":200,"quiet_zone":4},"output":{"filename":"qrcode","format":"svg"}}');
+
+        const settings = {
+            async: true,
+            crossDomain: true,
+            url: 'https://qrcode3.p.rapidapi.com/qrcode/text',
+            method: 'POST',
+            headers: {
+                'X-RapidAPI-Key': '7044b46aaamsh864a4d380fc6a56p1554f4jsncb63ab7712dc',
+                'X-RapidAPI-Host': 'qrcode3.p.rapidapi.com'
+            },
+            processData: false,
+            contentType: false,
+            mimeType: 'multipart/form-data',
+            data: form
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+    </script>
+
+    <!-- Bouton pour télécharger le certificat en PDF -->
+    <a href="{{ path('app_certif_pdf', { 'score': score }) }}" target="_blank">
+        <button><i class="fas fa-file-pdf"></i></button>
+    </a>
+
+</body>
 </html>

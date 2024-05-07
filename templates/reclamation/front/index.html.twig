@@ -1,8 +1,8 @@
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title> {% block title %} eLEARNING - eLearning HTML Template</title>{% endblock %}
+    <title> {% block title %} eLEARNING - Modèle HTML d'eLearning</title>{% endblock %}
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -53,19 +53,21 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                               <a href="{{path('home')}}" class="nav-item nav-link ">Accueil</a>
-                <a href="" class="nav-item nav-link ">Cours</a>
+             <div id="translation"></div>
+                <a href="{{path('Front')}}" class="nav-item nav-link ">Cours</a>
                  <a href="{{path('app_afficherfront')}}" class="nav-item nav-link ">Quizs</a>
-                  <a href="evenement.html.twig" class="nav-item nav-link">Evenements</a>
+                  <a href="{{path('app_affichereventfront')}}" class="nav-item nav-link " >Evenements</a>
                   <a href="{{path('app_reclamation')}}" class="nav-item nav-link active">Reclamations</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="team.html" class="dropdown-item">Clubs</a>
+                        <a href="{{path('app_afficherclubfront')}}" class="dropdown-item">Clubs</a>
                         <a href="team.html" class="dropdown-item">Paiements </a>
                         <a href="{{path('app_team')}}" class="dropdown-item">Notre Equipe</a>
                         <a href="{{path('app_about')}}" class="dropdown-item">A propos</a>
                         <a href="{{path('app_contact')}}" class="dropdown-item">Contactez-nous</a>
                         <a href="{{path('app_map')}}" class="dropdown-item">Emplacement</a>
+                         <a href="{{path('app_salle_index')}}" class="dropdown-item ">Salles</a>
 
 
 
@@ -93,7 +95,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
-                    {{form(form)}}
+                     {{ form (form,{'attr': {'novalidate': 'novalidate'}} ) }} 
                     <a class="btn btn-primary rounded-pill py-3 px-5" href="{{ path('app_afficherreclamationfront')}}">Listes des reclamations</a>
                 </div>
             </div>
@@ -107,10 +109,10 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <h4 class="text-white mb-3">Lien Rapide</h4>
                     <a class="btn btn-link" href="">A propos</a>
                     <a class="btn btn-link" href="">Contactez-nous</a>
-                    <a class="btn btn-link" href="">Privacy Policy</a>
+                    <a class="btn btn-link" href="">Politique de confidentialité</a>
                     <a class="btn btn-link" href="">Conditions</a>
                     <a class="btn btn-link" href="">Aide</a>
                 </div>
@@ -120,14 +122,14 @@
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="text-white mb-3">Gallerie</h4>
+                    <h4 class="text-white mb-3">Galerie</h4>
                     <div class="row g-2 pt-2">
                         <div class="col-4">
                             <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
@@ -150,11 +152,11 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="text-white mb-3">Newsletter</h4>
+                    <h4 class="text-white mb-3">Bulletin d'information</h4>
                     <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Votre email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Inscription</button>
                     </div>
                 </div>
             </div>
@@ -163,18 +165,18 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Ton Site Nom</a>, All Right Reserved.
+                        &copy; <a class="border-bottom" href="#">Ton Site Nom</a>, Tous droits réservés.
 
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a><br><br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                        <!--/*** Ce modèle est gratuit tant que vous gardez le lien de crédit de l'auteur dans le pied de page. Si vous souhaitez utiliser le modèle sans le lien de crédit de l'auteur, vous pouvez acheter la licence de suppression du crédit sur "https://htmlcodex.com/credit-removal". Merci pour votre soutien. ***/-->
+                        Conçu par <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a><br><br>
+                        Distribué par <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-menu">
                             <a href="">Accueil</a>
                             <a href="">Cookies</a>
                             <a href="">Aide</a>
-                            <a href="">FQAs</a>
+                            <a href="">FAQs</a>
                         </div>
                     </div>
                 </div>
@@ -182,7 +184,17 @@
         </div>
     </div>
     <!-- Footer End -->
+<script>// Les données à envoyer avec la requête
+$.ajax(settings).done(function (response) {
+    const translationElement = document.getElementById('translation');
+    if (response && response.translatedText) {
+        translationElement.innerText = 'Traduction: ' + response.translatedText;
+    } else {
+        translationElement.innerText = 'Erreur: Impossible de récupérer la traduction.';
+    }
+});
 
+</script>
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
@@ -202,4 +214,4 @@
 
 </body>
 {% endblock %}
-</html>
+</html>        

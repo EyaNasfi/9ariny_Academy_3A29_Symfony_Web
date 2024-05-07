@@ -47,7 +47,7 @@ class Club
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="iduser", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="iduser", referencedColumnName="iduser")
      * })
      */
     private $iduser;
@@ -62,7 +62,7 @@ class Club
         return $this->nameclub;
     }
 
-    public function setNameclub(string $nameclub): static
+    public function setNameclub(string $nameclub): self
     {
         $this->nameclub = $nameclub;
 
@@ -74,7 +74,7 @@ class Club
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -86,7 +86,7 @@ class Club
         return $this->numtlf;
     }
 
-    public function setNumtlf(int $numtlf): static
+    public function setNumtlf(int $numtlf): self
     {
         $this->numtlf = $numtlf;
 
@@ -98,12 +98,15 @@ class Club
         return $this->iduser;
     }
 
-    public function setIduser(?User $iduser): static
+    public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
 
         return $this;
     }
-
-
+    
+    public function __toString(): string
+    {
+        return $this->nameclub;
+    }
 }

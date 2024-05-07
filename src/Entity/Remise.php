@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Remise
  *
- * @ORM\Table(name="remise", indexes={@ORM\Index(name="idpaiement", columns={"idpaiement"}), @ORM\Index(name="iduser", columns={"iduser"})})
+ * @ORM\Table(name="remise")
  * @ORM\Entity
  */
 class Remise
@@ -15,11 +15,18 @@ class Remise
     /**
      * @var int
      *
-     * @ORM\Column(name="idremise", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idremise;
+    private $id;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montant", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $montant;
 
     /**
      * @var int
@@ -29,84 +36,51 @@ class Remise
     private $pourcentage;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="montantapresremise", type="integer", nullable=false)
+     * @ORM\Column(name="montantaprespourcentage", type="float", precision=10, scale=0, nullable=false)
      */
-    private $montantapresremise;
-
-    /**
-     * @var \Paiement
-     *
-     * @ORM\ManyToOne(targetEntity="Paiement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idpaiement", referencedColumnName="idpaiement")
-     * })
-     */
-    private $idpaiement;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="iduser", referencedColumnName="id")
-     * })
-     */
-    private $iduser;
-
-    public function getIdremise(): ?int
+    private $montantaprespourcentage;
+public function getId(): ?int
     {
-        return $this->idremise;
+        return $this->id;
     }
+    public function setId(int $id): self
+    {
+        $this->id = $id;
 
-    public function getPourcentage(): ?int
+        return $this;
+    }
+    public function getMontant():?float
+    {
+        return $this->montant;
+    }
+    public function setMontant(float $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+    public function getPourcentage():?int
     {
         return $this->pourcentage;
     }
-
-    public function setPourcentage(int $pourcentage): static
+    public function setPourcentage(int $pourcentage): self
     {
         $this->pourcentage = $pourcentage;
 
         return $this;
     }
-
-    public function getMontantapresremise(): ?int
+    public function getMontantaprespourcentage():?float
     {
-        return $this->montantapresremise;
+        return $this->montantaprespourcentage;
     }
+    public function setMontantaprespourcentage(float $montantaprespourcentage): self
 
-    public function setMontantapresremise(int $montantapresremise): static
     {
-        $this->montantapresremise = $montantapresremise;
+        $this->montantaprespourcentage = $montantaprespourcentage;
 
         return $this;
     }
-
-    public function getIdpaiement(): ?Paiement
-    {
-        return $this->idpaiement;
-    }
-
-    public function setIdpaiement(?Paiement $idpaiement): static
-    {
-        $this->idpaiement = $idpaiement;
-
-        return $this;
-    }
-
-    public function getIduser(): ?User
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?User $iduser): static
-    {
-        $this->iduser = $iduser;
-
-        return $this;
-    }
-
 
 }

@@ -1,0 +1,42 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}S'inscrire{% endblock %}
+
+{% block body %}
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Inscription</h6>
+                <h1 class="mb-5">S'inscrire maintenant</h1>
+            </div>
+            <div class="row g-4">
+                {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.email, {'label': 'Email', 'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(registrationForm.password, {'label': 'Mot de passe', 'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(registrationForm.nom, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(registrationForm.prenom, {'label': 'Prenom', 'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.address, {'label': 'Adresse', 'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(registrationForm.roles, {'label': 'Rôle', 'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(registrationForm.image, {'label': 'Image', 'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                {{ form_row(registrationForm.recaptcha) }}
+                {{ form_errors(registrationForm.recaptcha) }}
+                <button class="btn btn-lg btn-primary">{{ button_label|default('S\'inscrire') }}</button>
+                {{ form_end(registrationForm) }}
+                <br>
+                <label for="inputPassword">Vous avez déjà un compte ?</label>
+                <br>
+                <br>
+                <button class="btn btn-lg btn-primary" onclick="window.location.href='{{ path('app_login') }}'">
+                    Se connecter
+                </button>
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock %}

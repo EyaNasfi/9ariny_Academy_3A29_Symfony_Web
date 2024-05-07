@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -75,17 +74,26 @@ class Cours
         return $this;
     }
 
-    public function getIdfor(): ?Formation
+    public function getidfor(): ?Formation
     {
         return $this->idfor;
     }
 
-    public function setIdfor(?Formation $idfor): static
+    public function setIdfor(?Formation $idformation): static
     {
-        $this->idfor = $idfor;
+        $this->idfor = $idformation;
 
         return $this;
     }
-
-
+    public function getFormation(): ?String
+    {
+        return $this->idfor ? $this->idfor->getnomDeFormation() : null;
+    }
+    
+    public function setFormation(?Formation $formation): self
+    {
+        $this->idformation = $formation;
+    
+        return $this;
+    }
 }

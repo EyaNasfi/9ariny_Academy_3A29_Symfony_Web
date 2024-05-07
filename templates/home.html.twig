@@ -5,6 +5,12 @@
     <meta charset="utf-8">
     <title> {% block title %} eLEARNING - eLearning HTML Template</title>{% endblock %}
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="https://kit.fontawesome.com/7e57645445.js" crossorigin="anonymous"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
     <meta content="" name="keywords">
     <meta content="" name="description">
 {% block css %}
@@ -48,31 +54,75 @@
         <a href="index.html" class="navbar-brand d-flex align-items-center px-10 px-lg-25">
        <h1 class="m-0 text-primary"><img  src="/9A.png" >9arinyAcademy</h1>
         </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="{{path('home')}}" class="nav-item nav-link active">Accueil</a>
-                <a href="" class="nav-item nav-link ">Cours</a>
+             <div id="translation"></div>
+
+                <a href="{{path('Front')}}" class="nav-item nav-link ">Cours</a>
                  <a href="{{path('app_afficherfront')}}" class="nav-item nav-link ">Quizs</a>
-                  <a href="evenement.html.twig" class="nav-item nav-link">Evenements</a>
-                  <a href="{{path('app_reclamation')}}" class="nav-item nav-link">Reclamations</a>
+                                         {% if app.user %}
+                            {% if app.user.roles[1]=="ROLE_USER" %}
+                                <a href="{{ path('app_myprofile') }}" class="nav-item nav-link">Mon compte</a>
+                            {% endif %}
+                        {% endif %}
+
+                                  <a href="{{path('app_affichereventfront')}}" class="nav-item nav-link " >Evenements</a>
+                  <a href="{{path('app_reclamation')}}" class="nav-item nav-link ">Reclamations</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="team.html" class="dropdown-item">Clubs</a>
+                        <a href="{{path('app_afficherclubfront')}}" class="dropdown-item">Clubs</a>
                         <a href="team.html" class="dropdown-item">Paiements </a>
                         <a href="{{path('app_team')}}" class="dropdown-item">Notre Equipe</a>
                         <a href="{{path('app_about')}}" class="dropdown-item">A propos</a>
                         <a href="{{path('app_contact')}}" class="dropdown-item">Contactez-nous</a>
                         <a href="{{path('app_map')}}" class="dropdown-item">Emplacement</a>
-
+                         <a href="{{path('app_salle_index')}}" class="dropdown-item ">Salles</a>
 
                     </div>
                 </div>
             </div>
-            <a href="{{path('app_inscription')}}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Rejoindrez-Nous<i class="fa fa-arrow-right ms-3"></i></a>
+             <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"></span> <span class="glyphicon glyphicon-bell" style="font-size:18px;"></span></a>
+       <ul class="dropdown-menu">
+        {% set reclamationsTraitees = [] %}
+{% if Reponses is defined %}
+
+    {% for reponse in Reponses %}
+        {% set reclamation = reponse.idrec %}
+
+        {# Vérifier si la réclamation a déjà été traitée #}
+        {% if reclamation.idrec not in reclamationsTraitees %}
+            {% set reclamationsTraitees = reclamationsTraitees|merge([reclamation.idrec]) %}
+                {% if reclamation.iduser.iduser == 4 %}
+            {# Afficher la réclamation et la réponse associée #}
+            <li><a href="{{ path('app_afficherreclamationfront')}}" class="dropdown-item">
+                L'administrateur a répondu à votre réclamation {{ reponse.contenu }} qui a comme titre {{ reclamation.titre }}
+            </a></li>
+            {% endif %}
+        {% endif %}
+
+    {% endfor %}
+{% endif %}
+
+     </ul>
+           </li>
+           </ul>
+                       {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">
+                    Logout
+                    <i class="fa fa-arrow-right ms-3"></i>
+                </a>
+
+            {% else  %}
+                <a href="{{ path('app_login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">
+                    Sign Up/Login
+                    <i class="fa fa-arrow-right ms-3"></i>
+                </a>
+            {% endif %}
+
         </div>
     </nav>
     <!-- Navbar End -->

@@ -1,0 +1,261 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}User List{% endblock %}
+{% block body %}
+    <!-- row -->
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">User List </h4>
+                    </div>
+                    <div id="div_chart"></div>
+
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        {{ gc_draw(piechart, 'div_chart') }}
+                    </script>
+
+
+                    <div class="card-body">
+                        <a href="{{ path('app_add_user_admin') }}" class="btn btn-secondary">Ajouter Utilisateur</a>
+
+                        <div class="table-responsive">
+                            <div id="divs">
+                                <input class="form-control" type="text" id="search" placeholder="🔍">
+                                <a style="color:#FF0000;" class="tg-btn" href="" id="idup">UP ⬆️</a>
+                                <a style="color:#25DD28;" class="tg-btn" href="" id="iddown">DOWN ⬇️</a>
+                            </div>
+
+                            <table class="table table-sm mb-0 table-striped" id="t">
+                                <thead>
+                                <tr>
+                                    <th class="py-3">Image</th>
+                                    <th class="py-3">Nom et Prenom</th>
+                                    <th class="py-3">Email</th>
+                                    <th class="py-3">Address</th>
+                                    <th class="py-3">Role</th>
+                                    <th class="py-3">Etat</th>
+                                    <th class="py-3">Actions</th>
+                                </tr>
+                                </thead>
+                                                               <tbody id="all">
+                                {% for user in users %}
+                                    <tr class="btn-reveal-trigger">
+                                        <td class="p-3">
+                                            <img src="{{ asset('uploads1/images/' ~ user.image) }}" alt="" style="width: 50px; height: 50px; border-radius: 50%;">
+                                        </td>
+                                        <td class="p-3">{{ user.nom }} {{ user.prenom }}</td>
+                                        <td class="py-2">{{ user.email }}</td>
+                                        <td class="py-2">{{ user.address }}</td>
+                                        <td class="py-2">
+                                            {{ user.roles[0] }}
+                                        </td>
+                                        <td class="py-2">
+                                            {% if user.status == 'active' %}
+                                                <div class="text-success">Actif</div>
+                                            {% else %}
+                                                <div class="text-danger">Inactif</div>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('app_show_profile', {'id': user.iduser}) }}" class="btn btn-sm btn-primary"><i class="la la-eye"></i></a>
+
+                                            {% if user.roles|first != "ADMIN" %}
+                                                {% if user.status == 'active' %}
+                                                    <form method="post" action="{{ path('app_user_edit_etat', {'id': user.iduser}) }}">
+                                                        <button type="submit" class="btn btn-sm btn-warning"><i class="la btn-primary"></i></button>
+                                                    </form>
+                                                {% else %}
+                                                    <form method="post" action="{{ path('app_user_edit_etat', {'id': user.iduser}) }}">
+                                                        <button type="submit" class="btn btn-sm btn-success" title="Mettre en actif"><i class="la la-user-plus"></i></button>
+                                                    </form>
+                                                {% endif %}
+                                                <a href="{{ path('app_user_delete', {'id': user.iduser}) }}" type="submit" class="btn btn-sm btn-danger"><i class="la la-trash"></i></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">No records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+
+                                <tbody id="search"></tbody>
+                            </table>
+                    </div>
+                </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#divs").keyup(function (e) {
+                var value = $("#search").val();
+                if (value.length >= 1 || value.length == 0) {
+                    $.ajax({
+                        url: "{{ path('search_user') }}",
+                        type: 'GET',
+                        data: {
+                            'searchValue': value
+                        },
+                        success: function (response) {
+                            // Check if response is not empty
+                            if (response) {
+                                // Clear previous search results
+                                $('#t tbody#search').empty();
+                                // Parse JSON response
+                                var users = JSON.parse(response);
+                                // Iterate over etablissements and append rows to table
+                                $.each(users, function (i, user) {
+                                    $('#t tbody#all').hide();
+                                    $('#t tbody#search').append(
+                                        '<tr class="btn-reveal-trigger">' +
+                                        '<td class="p-3"><img src="{{ asset('uploads1/images/') }}' + user.image + '" alt="" style="width: 50px; height: 50px; border-radius: 50%;"></td>' +
+                                        '<td class="p-3">' + user.nom + ' ' + user.prenom + '</td>' +
+                                        '<td class="py-2">' + user.email + '</td>' +
+                                        '<td class="py-2">' + user.address + '</td>' +
+                                        '<td class="py-2">' + user.roles[0] + '</td>' +
+                                        '<td class="py-2">' +
+                                        '<div class="'+(user.status === 'active' ? 'text-success':'text-danger')+'">' + user.status + '</div>' +
+                                        '</td>' +
+                                        '<td>' +
+                                        '<a href="/user/profile/' + user.iduser + '" class="btn btn-sm btn-primary"><i class="la la-eye"></i></a>' +
+                                        (user.roles[0] !== 'ADMIN' ?
+                                            (user.status === 'active' ?
+                                                '<form method="post" action="/user/admin/' + user.iduser + '/edit"><button type="submit" class="btn btn-sm btn-warning"><i class="la la-user-times"></i></button></form>' :
+                                                '<form method="post" action="/user/admin/' + user.iduser + '/edit"><button type="submit" class="btn btn-sm btn-success" title="Mettre en actif"><i class="la la-user-plus"></i></button></form>') +
+                                            '<a href="/user/' + user.iduser + '/user" type="submit" class="btn btn-sm btn-danger"><i class="la la-trash"></i></a>' :
+                                            '') +
+                                        '</td>' +
+                                        '</tr>'
+                                    );
+                                });
+                            } else {
+                                // Handle empty response
+                                $('#t tbody#all').show();
+                                $('#t tbody#search').empty();
+                                $('#t tbody#search').fadeIn('fast');
+                            }
+                        }
+                    });
+                    return false;
+                }
+            });
+
+            $("#idup").click(function (e) {
+                var value = $("#search").val();
+                var value3 = "ASC";
+
+                $.ajax({
+                    url: "{{ path('search_user') }}",
+                    type: 'GET',
+                    data: {
+                        'searchValue': value,
+                        'orderid': value3
+                    },
+                    success: function (response) {
+                        // Check if response is not empty
+                        if (response) {
+                            // Clear previous search results
+                            $('#t tbody#search').empty();
+                            // Parse JSON response
+                            var users = JSON.parse(response);
+                            // Iterate over etablissements and append rows to table
+                            $.each(users, function (i, user) {
+                                $('#t tbody#all').hide();
+                                $('#t tbody#search').append(
+                                    '<tr class="btn-reveal-trigger">' +
+                                    '<td class="p-3"><img src="{{ asset('uploads1/images/') }}' + user.image + '" alt="" style="width: 50px; height: 50px; border-radius: 50%;"></td>' +
+                                    '<td class="p-3">' + user.nom + ' ' + user.prenom + '</td>' +
+                                    '<td class="py-2">' + user.email + '</td>' +
+                                    '<td class="py-2">' + user.address + '</td>' +
+                                    '<td class="py-2">' + user.roles[0] + '</td>' +
+                                    '<td class="py-2">' +
+                                    '<div class="'+(user.status === 'active' ? 'text-success':'text-danger')+'">' + user.status + '</div>' +
+                                    '</td>' +
+                                    '<td>' +
+                                    '<a href="/user/profile/' + user.iduser + '" class="btn btn-sm btn-primary"><i class="la la-eye"></i></a>' +
+                                    (user.roles[0] !== 'ADMIN' ?
+                                        (user.status === 'active' ?
+                                            '<form method="post" action="/user/admin/' + user.iduser + '/edit"><button type="submit" class="btn btn-sm btn-warning"><i class="la la-user-times"></i></button></form>' :
+                                            '<form method="post" action="/user/admin/' + user.iduser + '/edit"><button type="submit" class="btn btn-sm btn-success" title="Mettre en actif"><i class="la la-user-plus"></i></button></form>') +
+                                        '<a href="/user/' + user.iduser + '/user" type="submit" class="btn btn-sm btn-danger"><i class="la la-trash"></i></a>' :
+                                        '') +
+                                    '</td>' +
+                                    '</tr>'
+                                );
+                            });
+                        } else {
+                            // Handle empty response
+                            $('#t tbody#all').show();
+                            $('#t tbody#search').empty();
+                            $('#t tbody#search').fadeIn('fast');
+                        }
+                    }
+                });
+                return false;
+
+            });
+
+            $("#iddown").click(function (e) {
+                var value = $("#search").val();
+                var value3 = "DESC";
+
+                $.ajax({
+                    url: "{{ path('search_user') }}",
+                    type: 'GET',
+                    data: {
+                        'searchValue': value,
+                        'orderid': value3
+                    },
+                    success: function (response) {
+                        // Check if response is not empty
+                        if (response) {
+                            // Clear previous search results
+                            $('#t tbody#search').empty();
+                            var users = JSON.parse(response);
+                            $.each(users, function (i, user) {
+                                $('#t tbody#all').hide();
+                                $('#t tbody#search').append(
+                                    '<tr class="btn-reveal-trigger">' +
+                                    '<td class="p-3"><img src="{{ asset('uploads1/images/') }}' + user.image + '" alt="" style="width: 50px; height: 50px; border-radius: 50%;"></td>' +
+                                    '<td class="p-3">' + user.nom + ' ' + user.prenom + '</td>' +
+                                    '<td class="py-2">' + user.email + '</td>' +
+                                    '<td class="py-2">' + user.address + '</td>' +
+                                    '<td class="py-2">' + user.roles[0] + '</td>' +
+                                    '<td class="py-2">' +
+                                    '<div class="'+(user.status === 'active' ? 'text-success':'text-danger')+'">' + user.status + '</div>' +
+                                    '</td>' +
+                                    '<td>' +
+                                    '<a href="/user/profile/' + user.iduser + '" class="btn btn-sm btn-primary"><i class="la la-eye"></i></a>' +
+                                    (user.roles[0] !== 'ADMIN' ?
+                                        (user.status === 'active' ?
+                                            '<form method="post" action="/user/admin/' + user.iduser + '/edit"><button type="submit" class="btn btn-sm btn-warning"><i class="la la-user-times"></i></button></form>' :
+                                            '<form method="post" action="/user/admin/' + user.iduser + '/edit"><button type="submit" class="btn btn-sm btn-success" title="Mettre en actif"><i class="la la-user-plus"></i></button></form>') +
+                                        '<a href="/user/' + user.iduser + '/user" type="submit" class="btn btn-sm btn-danger"><i class="la la-trash"></i></a>' :
+                                        '') +
+                                    '</td>' +
+                                    '</tr>'
+                                );
+                            });
+                        } else {
+                            // Handle empty response
+                            $('#t tbody#all').show();
+                            $('#t tbody#search').empty();
+                            $('#t tbody#search').fadeIn('fast');
+                        }
+                    }
+                });
+                return false;
+
+            });
+        });
+    </script>
+{% endblock %}
+

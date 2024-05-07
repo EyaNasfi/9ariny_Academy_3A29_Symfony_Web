@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angular App</title>
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  .search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .search-input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  .search-input:focus {
+    border-color: dodgerblue;
+  }
+  .modal {
+    display: none; /* Masquer la fenêtre modale par défaut */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    animation-name: modalopen;
+    animation-duration: 0.5s;
+  }
+  @keyframes modalopen {
+    from {opacity: 0}
+    to {opacity: 1}
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  /* Styles CSS pour la fenêtre modale */
+.modal {
+    display: none; /* Masquer la fenêtre modale par défaut */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    animation-name: modalopen;
+    animation-duration: 0.5s;
+  }
+  
+  @keyframes modalopen {
+    from {opacity: 0}
+    to {opacity: 1}
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Styles CSS pour les champs de formulaire */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="checkbox"],
+  .form-group button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 50%;
+    margin-top: 5px;
+  }
+  
+  /* Styles CSS pour les boutons de catégorie */
+  .form-group button {
+    margin-right: 0px;
+  }
+  
+  /* Styles CSS pour les boutons de soumission */
+  .btn-primary {
+    background-color: dodgerblue;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #007bff;
+  }
+</style>
+</head>
+<body>
+
+
+  <!-- Fenêtre modale -->
+  <div id="myModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Filtrer les Résultats</h2>
+       <!-- Champ pour la recherche près de -->
+       <form method="post" action="{{ path('Front') }}">
+        <div class="form-group">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="nom" class="form-control">
+        </div>
+    
+        <div class="form-group">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" class="form-control">
+        </div>
+    
+        <div class="form-group">
+            <label for="q1">1. Quelle est votre opinion sur la qualité des cours dispensés à l'université?</label>
+            <input type="text" id="q1" name="opinion" class="form-control">
+        </div>
+    
+        <div class="form-group">
+            <label for="methodes_enseignement">* 2. Quelles méthodes d'enseignement trouvez-vous les plus efficaces?</label>
+            <div>
+                <input type="checkbox" id="cours_magistraux" name="methodes_enseignement[]" value="Cours magistraux">
+                <label for="cours_magistraux">Cours magistraux</label>
+            </div>
+            <div>
+                <input type="checkbox" id="travaux_pratiques" name="methodes_enseignement[]" value="Travaux pratiques">
+                <label for="travaux_pratiques">Travaux pratiques</label>
+            </div>
+            <div>
+                <input type="checkbox" id="travaux_diriges" name="methodes_enseignement[]" value="Travaux dirigés">
+                <label for="travaux_diriges">Travaux dirigés</label>
+            </div>
+            <div>
+                <input type="checkbox" id="projets_groupe" name="methodes_enseignement[]" value="Projets de groupe">
+                <label for="projets_groupe">Projets de groupe</label>
+            </div>
+            <div>
+                <input type="checkbox" id="apprentissage_ligne" name="methodes_enseignement[]" value="Apprentissage en ligne">
+                <label for="apprentissage_ligne">Apprentissage en ligne</label>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <label for="evaluation_recherche">* 3. Comment évaluez-vous les possibilités de recherche offertes par l'université?</label>
+            <div>
+                <input type="radio" id="excellent" name="evaluation_recherche" value="Excellent">
+                <label for="excellent">Excellent</label>
+            </div>
+            <div>
+                <input type="radio" id="bon" name="evaluation_recherche" value="Bon">
+                <label for="bon">Bon</label>
+            </div>
+            <div>
+                <input type="radio" id="moyen" name="evaluation_recherche" value="Moyen">
+                <label for="moyen">Moyen</label>
+            </div>
+            <div>
+                <input type="radio" id="mauvais" name="evaluation_recherche" value="Mauvais">
+                <label for="mauvais">Mauvais</label>
+            </div>
+        </div>
+    
+        <button type="submit" class="btn btn-primary" >Envoyer</button>
+    </form>
+    
+      
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+
+// Fonction pour ouvrir la fenêtre modale
+function openModal() {
+  const modal = document.getElementById("myModal");
+  if (modal) {
+    modal.style.display = "block";
+  }
+}
+
+// Fonction pour fermer la fenêtre modale
+function closeModal() {
+  const modal = document.getElementById("myModal");
+  if (modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Fermer la fenêtre modale lorsque l'utilisateur clique en dehors de celle-ci
+document.addEventListener('click', function(event) {
+  const modal = document.getElementById("myModal");
+  if (modal && event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+</script>
+
+</body>
+</html>
+
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Barre de recherche -->
+  <div class="search-bar">
+    <input type="text" id="searchBar" class="search-input" placeholder="Rechercher..." onclick="openModal()">
+  </div>
+
+
+
+<script>
+// Fonction pour ouvrir la fenêtre modale
+function openModal() {
+  const modal = document.getElementById("myModal");
+  if (modal) {
+    modal.style.display = "block";
+  }
+}
+
+// Fonction pour fermer la fenêtre modale
+function closeModal() {
+  const modal = document.getElementById("myModal");
+  if (modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Fermer la fenêtre modale lorsque l'utilisateur clique en dehors de celle-ci
+document.addEventListener('click', function(event) {
+  const modal = document.getElementById("myModal");
+  if (modal && event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+</script>
+
+</body>
+</html>
